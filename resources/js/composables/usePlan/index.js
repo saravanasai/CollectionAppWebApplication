@@ -17,8 +17,13 @@ export default function usePlan() {
         });
     };
 
+    const addPlan = async (data) => {
+       return api.post(url,data)
+    };
+
     return {
         ...toRefs(state),
         getPlan,
+        addPlan
     };
 }

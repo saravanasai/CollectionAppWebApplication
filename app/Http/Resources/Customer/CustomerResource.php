@@ -6,6 +6,7 @@ use App\Http\Resources\Agent\AgentResource;
 use App\Http\Resources\Collection\CollectionResource;
 use App\Http\Resources\Location\LocationResource;
 use App\Http\Resources\Plan\PlanResource;
+use App\Http\Resources\Scheme\SchemeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CustomerResource extends JsonResource
@@ -31,6 +32,7 @@ class CustomerResource extends JsonResource
             "plan"=>PlanResource::make($this->whenLoaded('Plan')),
             "agent"=>AgentResource::make($this->whenLoaded('Agent')),
             "collection"=>CollectionResource::make($this->whenLoaded('Collection')),
+            "scheme"=>SchemeResource::make($this->whenLoaded('Scheme')),
             "complementOne"=>$this->complement_one,
             "complementTwo"=>$this->complement_two,
             "created_at"=>$this->created_at->format('d-m-Y'),

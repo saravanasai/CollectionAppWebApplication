@@ -14,7 +14,8 @@ class TransactionFactory extends Factory
     public function definition()
     {
         return [
-            //
+           "transaction_amount"=>rand(100,1500),
+           "paid_to"=>1,
         ];
     }
 }

@@ -14,11 +14,18 @@ export default function useLocation() {
         api.get(url).then((e) => {
             state.locations = e.data.data;
             state.isLoadingLocation = false;
+
         });
     };
+
+    const addLocation = (data)=>{
+
+        return api.post(url,data)
+    }
 
     return {
         ...toRefs(state),
         getLocations,
+        addLocation
     };
 }

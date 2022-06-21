@@ -67,6 +67,7 @@ class CustomerMasterController extends Controller
             ->find($id)
             ->load('Plan')
             ->load('Collection')
+            ->load('Scheme')
             ->load('Agent')
             ->load('Location');
 

@@ -32,6 +32,7 @@ class CustomerStoreRequest extends FormRequest
             "location_id"=>['required'],
             "plan_id"=>['required'],
             "refered_agent_id"=>['required'],
+            "scheme_id"=>['required','numeric'],
         ];
     }
 }

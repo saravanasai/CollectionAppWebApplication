@@ -176,7 +176,7 @@
                 <span class="nav-link-title"> Masters </span>
               </a>
               <div class="dropdown-menu">
-                <router-link class="dropdown-item" to="">
+                <router-link class="dropdown-item" :to="{name:'location'}">
                   Location Master
                 </router-link>
                 <router-link class="dropdown-item" to="">
@@ -185,7 +185,7 @@
                 <router-link class="dropdown-item" to="">
                   Scheme Master
                 </router-link>
-                <router-link class="dropdown-item" to="">
+                <router-link class="dropdown-item" :to="{name:'plan'}">
                   Plan Master
                 </router-link>
               </div>

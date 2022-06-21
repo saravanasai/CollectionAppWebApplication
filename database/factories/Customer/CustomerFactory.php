@@ -25,6 +25,7 @@ class CustomerFactory extends Factory
             "location_id" => rand(1, 10),
             "plan_id" => rand(1, 5),
             "refered_agent_id" => rand(1, 10),
+            "scheme_id" => 1,
         ];
     }
 }

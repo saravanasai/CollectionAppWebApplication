@@ -27,7 +27,12 @@ class LocationMasterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            "location_id"=>['required','unique:locations,location_id','numeric'],
+            "location_name"=>['required'],
+        ]);
+
+        return LocationResource::make(Location::create(["location_id"=>$request->location_id,"location_name"=>$request->location_name]));
     }
 
     /**

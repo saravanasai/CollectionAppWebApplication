@@ -26,10 +26,13 @@ class CreateCustomersTable extends Migration
             $table->foreign('plan_id')->references('id')->on('plans');
             $table->unsignedBigInteger('refered_agent_id');
             $table->foreign('refered_agent_id')->references('id')->on('agents');
+            $table->unsignedBigInteger('scheme_id');
+            $table->foreign('scheme_id')->references('id')->on('schemes');
             $table->boolean('complement_one')->default(0);
             $table->boolean('complement_two')->default(0);
             $table->softDeletes();
             $table->timestamps();
+
         });
     }
 

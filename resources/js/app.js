@@ -1,4 +1,5 @@
 require("./bootstrap");
+import 'jquery/dist/jquery.min.js';
 import { createApp } from "vue";
 import App from "./src/index.vue";
 import router from "./src/routes/routes";

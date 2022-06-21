@@ -10,14 +10,49 @@ const Dashboard = import("../Page/Dashboard/Dashboard.vue");
 const Customer = import("../Page/Customer/Customer.vue");
 const AddCustomer = import("../Page/Customer/AddCustomer.vue");
 const EditCustomer = import("../Page/Customer/EditCustomer.vue");
+const SingleCustomerTransaction = import(
+    "../Page/Transaction/SingleCustomerTransaction.vue"
+);
+
+const Pay = import("../Page/Pay/Pay.vue");
+const Plan = import("../Page/Plan/Plan.vue");
+const Location = import("../Page/Location/Location.vue");
 
 const routes = [
 
     {
+        path: "/location",
+        name: "location",
+        component: Location,
+        props: true,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/plan",
+        name: "plan",
+        component: Plan,
+        props: true,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/customer/:id/pay",
+        name: "customer-pay",
+        component: Pay,
+        props: true,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/customer/:id/transaction",
+        name: "customer-transaction",
+        component: SingleCustomerTransaction,
+        props: true,
+        meta: { requiresAuth: true },
+    },
+    {
         path: "/customer/:id/edit",
         name: "customer-edit",
         component: EditCustomer,
-        props:true,
+        props: true,
         meta: { requiresAuth: true },
     },
     {

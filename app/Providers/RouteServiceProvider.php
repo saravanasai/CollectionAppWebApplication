@@ -27,6 +27,7 @@ class RouteServiceProvider extends ServiceProvider
         ['folder' => 'Customer', 'file' => 'customer_routes'],
         ['folder' => 'Transaction', 'file' => 'transaction_routes'],
         ['folder' => 'Location', 'file' => 'location_routes'],
+        ['folder' => 'Payment', 'file' => 'payment_routes'],
     ];
 
     // protected $namespace = 'App\\Http\\Controllers';

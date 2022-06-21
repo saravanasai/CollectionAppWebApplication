@@ -167,8 +167,21 @@
             </svg>
             Plan: Rs/-<strong>{{ customer.plan.amount }}</strong>
           </div>
-          <div class="row mt-4 ">
-          <router-link :to="{name:'customer-edit',params:{id:customer.id}}" class="card-btn">View full profile</router-link>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex">
+
+            <router-link
+              :to="{ name: 'customer-edit', params: { id: customer.id } }"
+              class="btn btn-link"
+              >Edit</router-link
+            >
+           <div class="d-flex justify-content-around">
+             <router-link
+              :to="{ name: 'customer-transaction', params: { id: customer.id } }"  class="btn btn-primary ms-auto mx-1">Transaction</router-link>
+              <router-link
+              :to="{ name: 'customer-pay', params: { id: customer.id } }"  class="btn btn-dark ms-auto mx-1">Pay Due</router-link>
+           </div>
           </div>
         </div>
       </div>

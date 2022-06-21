@@ -176,11 +176,20 @@
                     </div>
                   </div>
                   <div class="row">
+
                     <div class="col-sm-6 col-md-6">
                       <div class="form-group mb-3">
                         <label class="form-label">Select Agent</label>
                         <div>
                           <AgentSelect  v-model="refered_agent_id" :value="refered_agent_id" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                      <div class="form-group mb-3">
+                        <label class="form-label">Select Agent</label>
+                        <div>
+                          <SchemeSelect  v-model="scheme_id" :value="scheme_id" />
                         </div>
                       </div>
                     </div>
@@ -210,6 +219,7 @@ import LocationSelect from "../../../components/SelectBox/LocationSelect/Locatio
 import PlanSelect from "../../../components/SelectBox/PlanSelect/PlanSelect.vue";
 import AgentSelect from "../../../components/SelectBox/AgentSelect/AgentSelect.vue";
 import useNavigation from "../../../composables/useNavigation";
+import SchemeSelect from "../../../components/SelectBox/SchemeSelect/SchemeSelect.vue";
 undefined;
 undefined;
 export default {
@@ -220,6 +230,7 @@ export default {
     LocationSelect,
     PlanSelect,
     AgentSelect,
+    SchemeSelect,
   },
   setup() {
     const errors = ref([]);
@@ -235,6 +246,7 @@ export default {
       location_id: 0,
       plan_id: 0,
       refered_agent_id: 0,
+      scheme_id: 0,
     });
 
     const { addCustomer } = useCustomer();
@@ -249,6 +261,7 @@ export default {
       data.append("location_id", state.location_id);
       data.append("plan_id", state.plan_id);
       data.append("refered_agent_id", state.refered_agent_id);
+      data.append("scheme_id", state.scheme_id);
 
       addCustomer(data)
         .then((e) => {

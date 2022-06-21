@@ -1023,8 +1023,13 @@ function useLocation() {
     };
   }();
 
+  var addLocation = function addLocation(data) {
+    return _config__WEBPACK_IMPORTED_MODULE_1__["default"].post(url, data);
+  };
+
   return _objectSpread(_objectSpread({}, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toRefs)(state)), {}, {
-    getLocations: getLocations
+    getLocations: getLocations,
+    addLocation: addLocation
   });
 }
 
@@ -1089,8 +1094,30 @@ function usePlan() {
     };
   }();
 
+  var addPlan = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(data) {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              return _context2.abrupt("return", _config__WEBPACK_IMPORTED_MODULE_1__["default"].post(url, data));
+
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function addPlan(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
   return _objectSpread(_objectSpread({}, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toRefs)(state)), {}, {
-    getPlan: getPlan
+    getPlan: getPlan,
+    addPlan: addPlan
   });
 }
 

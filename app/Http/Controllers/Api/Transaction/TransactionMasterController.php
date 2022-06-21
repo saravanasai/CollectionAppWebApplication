@@ -46,7 +46,16 @@ class TransactionMasterController extends Controller
      */
     public function show($id)
     {
-        //
+        $transactions = Transaction::query()
+            ->where('customer_id', $id)
+            ->get();
+
+        $transactionSum = Transaction::query()
+        ->where('customer_id', $id)
+        ->sum('transaction_amount');
+
+
+        return TransactionResource::collection($transactions)->additional(['total' =>$transactionSum]);
     }
 
     /**
