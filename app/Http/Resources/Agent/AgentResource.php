@@ -19,6 +19,7 @@ class AgentResource extends JsonResource
             "id" => $this->id,
             "agentId" => $this->agent_id,
             "agentName" => $this->agent_name,
+            "agentPhone" => $this->agent_phone,
             "agentLocation" =>LocationResource::make($this->whenLoaded('Location')),
         ];
     }

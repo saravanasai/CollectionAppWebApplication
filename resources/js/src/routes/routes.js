@@ -17,9 +17,24 @@ const SingleCustomerTransaction = import(
 const Pay = import("../Page/Pay/Pay.vue");
 const Plan = import("../Page/Plan/Plan.vue");
 const Location = import("../Page/Location/Location.vue");
+const Agent = import("../Page/Agent/Agent.vue");
+const Scheme = import("../Page/Scheme/Scheme.vue");
 
 const routes = [
-
+    {
+        path: "/all-schemes",
+        name: "scheme",
+        component: Scheme,
+        props: true,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/all-agents",
+        name: "agents",
+        component: Agent,
+        props: true,
+        meta: { requiresAuth: true },
+    },
     {
         path: "/location",
         name: "location",

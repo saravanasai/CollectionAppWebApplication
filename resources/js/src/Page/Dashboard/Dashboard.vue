@@ -7,7 +7,9 @@
         <template v-slot:right-side-content>
           <div class="btn-list">
             <span class="d-none d-sm-inline">
-              <router-link :to="{name:'home'}"  class="btn btn-dark">Home</router-link>
+              <router-link :to="{ name: 'home' }" class="btn btn-dark"
+                >Home</router-link
+              >
             </span>
             <router-link
               class="btn btn-primary d-none d-sm-inline-block"
@@ -32,12 +34,10 @@
               </svg>
               Add New Member
             </router-link>
-            <a
-              href="#"
+            <router-link
+
+              :to="{name:'new-customer'}"
               class="btn btn-primary d-sm-none btn-icon"
-              data-bs-toggle="modal"
-              data-bs-target="#modal-report"
-              aria-label="Create new report"
             >
               <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
               <svg
@@ -56,13 +56,47 @@
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
-            </a>
+            </router-link>
           </div>
         </template>
       </Tittle>
     </template>
     <template v-slot:content>
-      <div class="card p-5"></div>
+      <div class="card p-md-5 p-sm-1">
+        <div class="row row-deck row-cards">
+          <DashboardCard
+            :Tittle="'Members'"
+            :SubTittle="'Total Members'"
+            :Total="dashboardStatistics.userCount"
+            :BarColor="'success'"
+            :To="'all-customer'"
+            :BtnText="'Member List'"
+          />
+          <DashboardCard
+            :Tittle="'Agents'"
+            :SubTittle="'Total Agents'"
+            :Total="dashboardStatistics.agentCount"
+            :BarColor="'primary'"
+            :To="'agents'"
+            :BtnText="'Agent List'"
+          />
+          <DashboardCard
+            :Tittle="'Estimated Collection'"
+            :SubTittle="'Amount Need To be Colected'"
+            :Total="dashboardStatistics.TotalCollection"
+            :BarColor="'yellow'"
+            :BtnText="'Comming Soon...'"
+          />
+          <DashboardCard
+            :Tittle="'Current Total'"
+            :SubTittle="'Total Amount Collected'"
+            :Total="dashboardStatistics.TotalCollectionBalance"
+             :BtnText="'Comming Soon...'"
+          />
+          <PlanStatistics />
+          <LocationStatistics />
+        </div>
+      </div>
     </template>
   </MainLayout>
 </template>
@@ -75,10 +109,34 @@ import BookCard from "../../../components/Widget/BookCard/BookCard.vue";
 import SimpleModal from "../../../components/Modal/SimpleModel.vue";
 
 import { onMounted, ref, toRefs, reactive } from "@vue/runtime-core";
+import DashboardCard from "../../../components/Widget/DashboardCard/DashboardCard.vue";
+import PlanStatistics from "../../../components/Statistics/PlanStatistics/PlanStatistics.vue";
+import LocationStatistics from "../../../components/Statistics/LocationStatistics/LocationStatistics.vue";
+import useStatistics from "../../../composables/useStatistics";
 export default {
-  components: { MainLayout, Tittle, BookCard, SimpleModal, Loader },
+  components: {
+    MainLayout,
+    Tittle,
+    BookCard,
+    SimpleModal,
+    Loader,
+    DashboardCard,
+    PlanStatistics,
+    LocationStatistics,
+  },
   setup() {
-    return {};
+
+
+
+    const {dashboardStatistics,getDashboardStatics,isLoadingDashboardStatistics}=useStatistics()
+
+    onMounted(() => {
+
+        getDashboardStatics()
+
+    })
+
+    return {dashboardStatistics};
   },
 };
 </script>

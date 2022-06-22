@@ -1,5 +1,5 @@
 <template>
-  <select class="form-select required" v-model="value">
+  <select class="form-select required" v-model="value" required>
     <option id="0" value="0" :selected="true">Choose Location</option>
     <template v-for="location in locations" :key="location.id">
       <span>{{ value }}</span>

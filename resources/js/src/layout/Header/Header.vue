@@ -179,10 +179,10 @@
                 <router-link class="dropdown-item" :to="{name:'location'}">
                   Location Master
                 </router-link>
-                <router-link class="dropdown-item" to="">
+                <router-link class="dropdown-item" :to="{name:'agents'}">
                   Agent Master
                 </router-link>
-                <router-link class="dropdown-item" to="">
+                <router-link class="dropdown-item" :to="{name:'scheme'}">
                   Scheme Master
                 </router-link>
                 <router-link class="dropdown-item" :to="{name:'plan'}">

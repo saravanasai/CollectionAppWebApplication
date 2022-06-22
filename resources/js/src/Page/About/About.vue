@@ -31,15 +31,10 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h2 class="h3">
-                    Expense-Tracker . Track Your Spending like Pro.
+                     Exciteon Track Your Transactions like Pro.
                   </h2>
                   <p class="m-0 text-muted">
-                    Also known as expense manager and money manager, an expense
-                    tracker is a software or application that helps to keep an
-                    accurate record of your money inflow and outflow. Many
-                    people in India live on a fixed income, and they find that
-                    towards the end of the month they don't have sufficient
-                    money to meet their needs.
+                    As Exciteon, we are a team that is well trained and knowledgeable when it comes to a number of web-related requirements. As website builders, we are dedicated to always provide the best services for all of our clients and we have never failed. Our list of endlessly satisfied customers can attest to that. We are dedicated and always available for you. Customer satisfaction is what we pride ourselves in and we have taken advantage of our uniqueness and our abilities to grow our company network across the world. As a team, we are excellent, talented, purpose driven, results-oriented, effective and efficient
                   </p>
                 </div>
                 <div class="col-auto">

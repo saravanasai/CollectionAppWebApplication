@@ -17,8 +17,14 @@ export default function useAgent() {
         });
     };
 
+    const addAgent = (data)=>{
+
+        return api.post(url,data)
+    }
+
     return {
         ...toRefs(state),
         getAgents,
+        addAgent
     };
 }
