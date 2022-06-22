@@ -5,20 +5,17 @@ import Register from "../Page/Register/Register.vue";
 import Login from "../Page/Login/Login.vue";
 import About from "../Page/About/About.vue";
 import NotFound from "../Page/404/404.vue";
+import Dashboard from "../Page/Dashboard/Dashboard.vue";
+import Customer from "../Page/Customer/Customer.vue";
+import AddCustomer from "../Page/Customer/AddCustomer.vue";
+import EditCustomer from "../Page/Customer/EditCustomer.vue";
+import SingleCustomerTransaction from "../Page/Transaction/SingleCustomerTransaction.vue";
 
-const Dashboard = import("../Page/Dashboard/Dashboard.vue");
-const Customer = import("../Page/Customer/Customer.vue");
-const AddCustomer = import("../Page/Customer/AddCustomer.vue");
-const EditCustomer = import("../Page/Customer/EditCustomer.vue");
-const SingleCustomerTransaction = import(
-    "../Page/Transaction/SingleCustomerTransaction.vue"
-);
-
-const Pay = import("../Page/Pay/Pay.vue");
-const Plan = import("../Page/Plan/Plan.vue");
-const Location = import("../Page/Location/Location.vue");
-const Agent = import("../Page/Agent/Agent.vue");
-const Scheme = import("../Page/Scheme/Scheme.vue");
+import Pay from "../Page/Pay/Pay.vue";
+import Plan from "../Page/Plan/Plan.vue";
+import Location from "../Page/Location/Location.vue";
+import Agent from "../Page/Agent/Agent.vue";
+import Scheme from "../Page/Scheme/Scheme.vue";
 
 const routes = [
     {
