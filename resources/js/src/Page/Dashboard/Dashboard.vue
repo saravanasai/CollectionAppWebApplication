@@ -85,13 +85,16 @@
             :SubTittle="'Amount Need To be Colected'"
             :Total="dashboardStatistics.TotalCollection"
             :BarColor="'yellow'"
-            :BtnText="'Comming Soon...'"
+            :To="'advance-filter'"
+            :BtnText="'Adavance FIlter'"
           />
+
           <DashboardCard
             :Tittle="'Current Total'"
             :SubTittle="'Total Amount Collected'"
-            :Total="dashboardStatistics.TotalCollectionBalance"
-             :BtnText="'Comming Soon...'"
+            :Total="dashboardStatistics.TotalCollection-dashboardStatistics.TotalCollectionBalance"
+            :To="'reports'"
+             :BtnText="'Transactions'"
           />
           <PlanStatistics />
           <LocationStatistics />

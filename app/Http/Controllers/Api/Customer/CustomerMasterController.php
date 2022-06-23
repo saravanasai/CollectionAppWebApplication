@@ -22,16 +22,29 @@ class CustomerMasterController extends Controller
 
         $query = Customer::query();
 
+
         if ($request->has('searchKey') && $request->searchKey != '') {
 
-            $query->whereRaw("customers.customer_id LIKE '%" . $request->searchKey . "%'")
-                ->orWhereRaw("customers.f_username LIKE '%" .  $request->searchKey . "%'")
-                ->orWhereRaw("customers.s_username LIKE '%" .  $request->searchKey . "%'")
-                ->orWhereRaw("customers.primary_phone LIKE '%" .  $request->searchKey . "%'")
-                ->orWhereRaw("customers.secondary_phone LIKE '%" .  $request->searchKey . "%'");
+            $query->search($request->searchKey);
         }
 
-        $customer = $query->with(['Location', 'Plan', 'Agent', 'Collection'])
+        if ($request->has('location') && $request->location != 0) {
+            $query->locationFilter($request->location);
+        }
+
+        if ($request->has('plan') && $request->plan != 0) {
+            $query->planFilter($request->plan);
+        }
+
+        if ($request->has('agent') && $request->agent != 0) {
+            $query->agentFilter($request->agent);
+        }
+
+        if ($request->has('amount') && $request->amount != 0) {
+            $query->amountBalanceFilter($request->amount);
+        }
+
+        $customer = $query->with(['Location', 'Plan', 'Agent','Collection'])
             ->orderBy('customer_id', 'ASC')
             ->get();
 

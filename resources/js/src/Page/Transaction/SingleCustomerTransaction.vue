@@ -138,7 +138,7 @@
 import MainLayout from "../../layout/Main/Main.vue";
 import Tittle from "../../layout/Tittle/Tittle.vue";
 import Loader from "../../../components/Loader/Loader.vue";
-import useCustomer from "../../../composables/useCustomer";
+import useFreeCustomer from "../../../composables/useFreeCustomer";
 import { onMounted, ref, toRefs, reactive } from "@vue/runtime-core";
 import LocationSelect from "../../../components/SelectBox/LocationSelect/LocationSelect.vue";
 import PlanSelect from "../../../components/SelectBox/PlanSelect/PlanSelect.vue";
@@ -171,7 +171,7 @@ export default {
       agent_id: 0,
     });
 
-    const { customer, getCustomer, updateCustomer } = useCustomer();
+    const { customer, getCustomer, updateCustomer } = useFreeCustomer();
     const {
       customertransactions,
       getSingleCustomerTransaction,

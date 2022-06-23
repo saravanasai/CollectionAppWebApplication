@@ -18,10 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['middleware'=>'auth:sanctum'],function()
-{
+Route::group([], function () {
 
-    Route::apiResource('agent',AgentMasterController::class);
-
-
+    Route::apiResource('agent', AgentMasterController::class);
 });

@@ -2,8 +2,8 @@ import { reactive, toRefs } from "vue";
 
 import api from "../../config";
 
-export default function useCustomer() {
-    const url = "/customer";
+export default function useFreeCustomer() {
+    const url = "free/customer";
 
     const state = reactive({
         customers: {},
@@ -11,10 +11,27 @@ export default function useCustomer() {
         isLoadingCustomer: true,
     });
 
-    const getCustomers = async (key = "",location=0,agent=0,plan=0,amount=0) => {
+    const getCustomers = async (
+        key = "",
+        location = 0,
+        agent = 0,
+        plan = 0,
+        amount = 0
+    ) => {
         state.isLoadingCustomer = true;
 
-        let dynamicUrl=url + "?searchKey=" + key+"&location="+location+"&agent="+agent+"&plan="+plan+"&amount="+amount
+        let dynamicUrl =
+            url +
+            "?searchKey=" +
+            key +
+            "&location=" +
+            location +
+            "&agent=" +
+            agent +
+            "&plan=" +
+            plan +
+            "&amount=" +
+            amount;
 
         api.get(dynamicUrl).then((e) => {
             state.customers = e.data.data;

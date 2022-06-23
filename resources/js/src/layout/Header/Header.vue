@@ -104,6 +104,33 @@
                 <span class="nav-link-title"> About Us </span>
               </router-link>
             </li>
+
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'open-search' }">
+                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                  <!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-user-search"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h1"></path>
+                    <circle cx="16.5" cy="17.5" r="2.5"></circle>
+                    <path d="M18.5 19.5l2.5 2.5"></path>
+                  </svg>
+                </span>
+                <span class="nav-link-title"> Search </span>
+              </router-link>
+            </li>
             <li class="nav-item">
               <router-link class="nav-link" :to="{ name: 'dashboard' }">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -176,16 +203,16 @@
                 <span class="nav-link-title"> Masters </span>
               </a>
               <div class="dropdown-menu">
-                <router-link class="dropdown-item" :to="{name:'location'}">
+                <router-link class="dropdown-item" :to="{ name: 'location' }">
                   Location Master
                 </router-link>
-                <router-link class="dropdown-item" :to="{name:'agents'}">
+                <router-link class="dropdown-item" :to="{ name: 'agents' }">
                   Agent Master
                 </router-link>
-                <router-link class="dropdown-item" :to="{name:'scheme'}">
+                <router-link class="dropdown-item" :to="{ name: 'scheme' }">
                   Scheme Master
                 </router-link>
-                <router-link class="dropdown-item" :to="{name:'plan'}">
+                <router-link class="dropdown-item" :to="{ name: 'plan' }">
                   Plan Master
                 </router-link>
               </div>

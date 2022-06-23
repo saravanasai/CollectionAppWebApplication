@@ -67,4 +67,70 @@ class Customer extends Model
     {
         return $this->hasMany(Transaction::class, 'customer_id', 'id');
     }
+
+
+
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch($query, $searchKey)
+    {
+        return  $query->whereRaw("customers.customer_id LIKE '%" . $searchKey . "%'")
+            ->orWhereRaw("customers.f_username LIKE '%" .  $searchKey . "%'")
+            ->orWhereRaw("customers.s_username LIKE '%" .  $searchKey . "%'")
+            ->orWhereRaw("customers.primary_phone LIKE '%" .  $searchKey . "%'")
+            ->orWhereRaw("customers.secondary_phone LIKE '%" .  $searchKey . "%'");
+    }
+
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLocationFilter($query, $locationId)
+    {
+        return  $query->where("customers.location_id", $locationId);
+    }
+
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAgentFilter($query, $agentId)
+    {
+        return  $query->where("customers.refered_agent_id", $agentId);
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePlanFilter($query, $planId)
+    {
+        return  $query->where("customers.plan_id", $planId);
+    }
+
+
+      /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAmountBalanceFilter($query,$amount)
+    {
+        return  $query->whereRelation('Collection','collection_balance_due','<=',$amount);
+    }
+
 }

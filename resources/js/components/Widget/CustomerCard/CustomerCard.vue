@@ -171,7 +171,7 @@
         <div class="card-footer">
           <div class="d-flex">
 
-            <router-link
+            <router-link v-show="showEditBtn"
               :to="{ name: 'customer-edit', params: { id: customer.id } }"
               class="btn btn-link"
               >Edit</router-link
@@ -179,7 +179,7 @@
            <div class="d-flex justify-content-around">
              <router-link
               :to="{ name: 'customer-transaction', params: { id: customer.id } }"  class="btn btn-primary ms-auto mx-1">Transaction</router-link>
-              <router-link
+              <router-link v-show="showPayBtn"
               :to="{ name: 'customer-pay', params: { id: customer.id } }"  class="btn btn-dark ms-auto mx-1">Pay Due</router-link>
            </div>
           </div>
@@ -195,6 +195,14 @@
 export default {
   props: {
     data: Object,
+    showEditBtn:{
+        type:Boolean,
+        default: true
+    },
+    showPayBtn:{
+        type:Boolean,
+        default: true
+    },
   },
 };
 </script>

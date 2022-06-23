@@ -26,3 +26,5 @@ Route::group(['middleware'=>'auth:sanctum'],function()
 
 
 });
+
+Route::apiResource('free/customer',CustomerMasterController::class);

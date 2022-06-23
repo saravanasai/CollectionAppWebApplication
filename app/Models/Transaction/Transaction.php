@@ -2,6 +2,7 @@
 
 namespace App\Models\Transaction;
 
+use App\Models\Customer\Customer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,5 +28,10 @@ class Transaction extends Model
     public function User()
     {
         return $this->hasOne(User::class,'id','paid_to');
+    }
+
+    public function Customer()
+    {
+        return $this->hasOne(Customer::class,'id','customer_id');
     }
 }

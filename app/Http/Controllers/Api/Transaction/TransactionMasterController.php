@@ -14,15 +14,47 @@ class TransactionMasterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $transactions = Transaction::query()
-            ->with('User')
+        $query = Transaction::query();
+
+        if ($request->has('fromDate') && $request->fromDate != '' && $request->has('toDate') && $request->toDate != '') {
+
+            $query->whereRaw(
+                "(created_at >= ? AND created_at <= ?)",
+                [
+                    $request->fromDate . " 00:00:00",
+                    $request->toDate  . " 23:59:59"
+                ]
+            );
+        } else {
+            if ($request->has('fromDate') && $request->fromDate != '') {
+                $query->whereRaw(
+                    "(created_at >= ? )",
+                    [
+                        $request->fromDate . " 00:00:00",
+
+                    ]
+                );
+            }
+
+            if ($request->has('toDate') && $request->toDate != '') {
+                $query->whereRaw(
+                    "(created_at >= ? AND created_at <= ?)",
+                    [
+                        '9999-99-99' . " 00:00:00",
+                        $request->toDate . " 23:59:59"
+                    ]
+                );
+            }
+        }
+
+
+
+        $transactions = $query->with(['User', 'Customer'])
             ->orderBy('id', 'DESC')
             ->get();
-
-
 
         return TransactionResource::collection($transactions);
     }
@@ -51,11 +83,11 @@ class TransactionMasterController extends Controller
             ->get();
 
         $transactionSum = Transaction::query()
-        ->where('customer_id', $id)
-        ->sum('transaction_amount');
+            ->where('customer_id', $id)
+            ->sum('transaction_amount');
 
 
-        return TransactionResource::collection($transactions)->additional(['total' =>$transactionSum]);
+        return TransactionResource::collection($transactions)->additional(['total' => $transactionSum]);
     }
 
     /**

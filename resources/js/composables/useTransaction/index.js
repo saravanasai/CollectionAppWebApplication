@@ -12,9 +12,9 @@ export default function useTransaction() {
         isLoadingTransaction: true,
     });
 
-    const getAllTransactions = async () => {
+    const getAllTransactions = async (fromDate='',toDate='') => {
         state.isLoadingTransaction = true;
-        api.get(url).then((e) => {
+        api.get(url+"?fromDate="+fromDate+"&toDate="+toDate).then((e) => {
             state.transactions = e.data.data;
             state.isLoadingTransaction = false;
         });

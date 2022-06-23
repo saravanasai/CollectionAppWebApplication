@@ -16,8 +16,32 @@ import Plan from "../Page/Plan/Plan.vue";
 import Location from "../Page/Location/Location.vue";
 import Agent from "../Page/Agent/Agent.vue";
 import Scheme from "../Page/Scheme/Scheme.vue";
+import AdvanceFilter from "../Page/AdvanceFilter/AdvanceFilter.vue";
+import OpenSearch from "../Page/OpenSearch/OpenSearch.vue";
+import TransactionReport from "../Page/TransactionReport/TransactionReport.vue";
 
 const routes = [
+
+    {
+        path: "/reports",
+        name: "reports",
+        component: TransactionReport,
+        props: true,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/search/open-search",
+        name: "open-search",
+        component: OpenSearch,
+        meta: { requiresAuth: false },
+    },
+    {
+        path: "/advance-filter",
+        name: "advance-filter",
+        component: AdvanceFilter,
+        props: true,
+        meta: { requiresAuth: true },
+    },
     {
         path: "/all-schemes",
         name: "scheme",
@@ -58,7 +82,7 @@ const routes = [
         name: "customer-transaction",
         component: SingleCustomerTransaction,
         props: true,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: false },
     },
     {
         path: "/customer/:id/edit",
