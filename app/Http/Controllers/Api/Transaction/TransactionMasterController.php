@@ -56,6 +56,8 @@ class TransactionMasterController extends Controller
             ->orderBy('id', 'DESC')
             ->get();
 
+
+
         return TransactionResource::collection($transactions);
     }
 

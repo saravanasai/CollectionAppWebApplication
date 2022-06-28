@@ -5,58 +5,13 @@
         <template v-slot:pre-tittle>My Dashboard</template>
         <template v-slot:page-tittle>My Collection Dashboard </template>
         <template v-slot:right-side-content>
-          <div class="btn-list">
-            <span class="d-none d-sm-inline">
+          <div class="btn-list float-end">
+            <span class="d-sm-inline">
               <router-link :to="{ name: 'home' }" class="btn btn-dark"
                 >Home</router-link
               >
             </span>
-            <router-link
-              class="btn btn-primary d-none d-sm-inline-block"
-              :to="{ name: 'new-customer' }"
-            >
-              <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              Add New Member
-            </router-link>
-            <router-link
-
-              :to="{name:'new-customer'}"
-              class="btn btn-primary d-sm-none btn-icon"
-            >
-              <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-            </router-link>
+            <BackButton />
           </div>
         </template>
       </Tittle>
@@ -92,9 +47,12 @@
           <DashboardCard
             :Tittle="'Current Total'"
             :SubTittle="'Total Amount Collected'"
-            :Total="dashboardStatistics.TotalCollection-dashboardStatistics.TotalCollectionBalance"
+            :Total="
+              dashboardStatistics.TotalCollection -
+              dashboardStatistics.TotalCollectionBalance
+            "
             :To="'reports'"
-             :BtnText="'Transactions'"
+            :BtnText="'Transactions'"
           />
           <PlanStatistics />
           <LocationStatistics />
@@ -116,6 +74,7 @@ import DashboardCard from "../../../components/Widget/DashboardCard/DashboardCar
 import PlanStatistics from "../../../components/Statistics/PlanStatistics/PlanStatistics.vue";
 import LocationStatistics from "../../../components/Statistics/LocationStatistics/LocationStatistics.vue";
 import useStatistics from "../../../composables/useStatistics";
+import BackButton from "../../../components/Buttons/BackButton/BackButton.vue";
 export default {
   components: {
     MainLayout,
@@ -126,20 +85,20 @@ export default {
     DashboardCard,
     PlanStatistics,
     LocationStatistics,
+    BackButton,
   },
   setup() {
-
-
-
-    const {dashboardStatistics,getDashboardStatics,isLoadingDashboardStatistics}=useStatistics()
+    const {
+      dashboardStatistics,
+      getDashboardStatics,
+      isLoadingDashboardStatistics,
+    } = useStatistics();
 
     onMounted(() => {
+      getDashboardStatics();
+    });
 
-        getDashboardStatics()
-
-    })
-
-    return {dashboardStatistics};
+    return { dashboardStatistics };
   },
 };
 </script>

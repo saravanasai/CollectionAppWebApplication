@@ -5,36 +5,13 @@
         <template v-slot:pre-tittle>Pay Due</template>
         <template v-slot:page-tittle>Pay Due</template>
         <template v-slot:right-side-content>
-          <div class="btn-list">
-            <span class="d-none d-sm-inline">
+          <div class="btn-list float-end">
+            <span class="d-sm-inline">
               <router-link :to="{ name: 'home' }" class="btn btn-dark"
                 >Home</router-link
               >
             </span>
-            <router-link
-              class="btn btn-primary d-none d-sm-inline-block"
-              :to="{ name: 'dashboard' }"
-            >
-              <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              Dashboard
-            </router-link>
-
+            <BackButton />
           </div>
         </template>
       </Tittle>
@@ -93,7 +70,7 @@
                   <div class="mb-3">
                     <label class="form-label required">Amount</label>
                     <input
-                    v-model="amount"
+                      v-model="amount"
                       type="number"
                       max="10000"
                       class="form-control"
@@ -125,6 +102,7 @@ import useCustomer from "../../../composables/useCustomer";
 import { onMounted, ref, toRefs, reactive } from "@vue/runtime-core";
 import useNavigation from "../../../composables/useNavigation";
 import usePayment from "../../../composables/usePayment";
+import BackButton from "../../../components/Buttons/BackButton/BackButton.vue";
 undefined;
 undefined;
 export default {
@@ -132,9 +110,10 @@ export default {
     MainLayout,
     Tittle,
     Loader,
-  },
+    BackButton
+},
   props: {
-    id: Number,
+    id: String,
   },
   setup(props) {
     const { router, route } = useNavigation();
