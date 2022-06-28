@@ -5,35 +5,13 @@
         <template v-slot:pre-tittle>Transaction Reports</template>
         <template v-slot:page-tittle>Transaction Reports</template>
         <template v-slot:right-side-content>
-          <div class="btn-list">
-            <span class="d-none d-sm-inline">
+          <div class="btn-list float-end">
+            <span class="d-sm-inline">
               <router-link :to="{ name: 'home' }" class="btn btn-dark"
                 >Home</router-link
               >
             </span>
-            <router-link
-              class="btn btn-primary d-none d-sm-inline-block"
-              :to="{ name: 'dashboard' }"
-            >
-              <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              Dashboard
-            </router-link>
+            <BackButton />
           </div>
         </template>
       </Tittle>
@@ -70,6 +48,18 @@
                     />
                   </div>
                 </div>
+                <div class="col-md-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <div class="subheader">Total</div>
+                      </div>
+                      <div class="d-flex align-items-baseline">
+                        <div class="h1 mb-0 me-2">{{total}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </form>
             <div class="dropdown-divider bt-2"></div>
@@ -77,41 +67,44 @@
               <div class="center" v-show="isLoadingTransaction">
                 <Loader :isLoading="isLoadingTransaction" />
               </div>
-              <table class="table" id="TransactionReportTable">
-                <thead>
-                  <tr>
-                    <th><button class="table-sort">Sno</button></th>
-                    <th><button class="table-sort">Member ID</button></th>
-                    <th><button class="table-sort">Name</button></th>
-                    <th>
-                      <button class="table-sort">Trnsaction Amount</button>
-                    </th>
-                    <th><button class="table-sort">Date</button></th>
-                  </tr>
-                </thead>
+              <div class="table-responsive">
 
-                <tbody class="table-tbody">
-                  <template v-for="(item, i) in transactions" :key="item.id">
+                <table class="table" id="TransactionReportTable">
+                  <thead>
                     <tr>
-                      <td class="sort-name">
-                        {{ ++i }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.customer?.customerId }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.customer?.firstName }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.transactionAmount }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.created_at }}
-                      </td>
+                      <th><button class="table-sort">Sno</button></th>
+                      <th><button class="table-sort">Member ID</button></th>
+                      <th><button class="table-sort">Name</button></th>
+                      <th>
+                        <button class="table-sort">Trnsaction Amount</button>
+                      </th>
+                      <th><button class="table-sort">Date</button></th>
                     </tr>
-                  </template>
-                </tbody>
-              </table>
+                  </thead>
+
+                  <tbody class="table-tbody">
+                    <template v-for="(item, i) in transactions" :key="item.id">
+                      <tr>
+                        <td class="sort-name">
+                          {{ ++i }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.customer?.customerId }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.customer?.firstName }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.transactionAmount }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.created_at }}
+                        </td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -125,13 +118,14 @@ import MainLayout from "../../layout/Main/Main.vue";
 import Tittle from "../../layout/Tittle/Tittle.vue";
 import Loader from "../../../components/Loader/Loader.vue";
 import useTransaction from "../../../composables/useTransaction";
-import { onMounted, ref, toRefs, reactive } from "@vue/runtime-core";
+import { onMounted, ref, toRefs, reactive, computed } from "@vue/runtime-core";
 import useNavigation from "../../../composables/useNavigation";
 import CustomerCard from "../../../components/Widget/CustomerCard/CustomerCard.vue";
 //Datatable Modules
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
+import BackButton from "../../../components/Buttons/BackButton/BackButton.vue";
 
 export default {
   components: {
@@ -139,6 +133,7 @@ export default {
     Tittle,
     Loader,
     CustomerCard,
+    BackButton,
   },
   setup() {
     const { router, route } = useNavigation();
@@ -148,6 +143,7 @@ export default {
     const state = reactive({
       fromDate: "",
       toDate: "",
+      total: 0,
     });
 
     const { transactions, getAllTransactions, isLoadingTransaction } =
@@ -156,6 +152,7 @@ export default {
     onMounted(() => {
       getAllTransactions().then((e) => {
         setTimeout(() => {
+            state.total= totalSum()
           TransactionReporttable = $("#TransactionReportTable").DataTable();
         }, 2000);
       });
@@ -165,9 +162,16 @@ export default {
       TransactionReporttable.destroy();
       getAllTransactions(state.fromDate, state.toDate).then((e) => {
         setTimeout(() => {
+          state.total= totalSum()
           TransactionReporttable = $("#TransactionReportTable").DataTable();
         }, 2000);
       });
+    };
+
+    const totalSum = () => {
+     return transactions.value.reduce((total, item) => {
+        return (total += Number(item.transactionAmount));
+      }, 0);
     };
 
     return {
@@ -175,6 +179,7 @@ export default {
       transactions,
       isLoadingTransaction,
       handleReportFilter,
+      totalSum
     };
   },
 };

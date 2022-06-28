@@ -5,35 +5,13 @@
         <template v-slot:pre-tittle>All Plans</template>
         <template v-slot:page-tittle>All Plans</template>
         <template v-slot:right-side-content>
-          <div class="btn-list">
-            <span class="d-none d-sm-inline">
+          <div class="btn-list float-end">
+            <span class="d-sm-inline">
               <router-link :to="{ name: 'home' }" class="btn btn-dark"
                 >Home</router-link
               >
             </span>
-            <router-link
-              class="btn btn-primary d-none d-sm-inline-block"
-              :to="{ name: 'dashboard' }"
-            >
-              <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              Dashboard
-            </router-link>
+            <BackButton />
           </div>
         </template>
       </Tittle>
@@ -84,32 +62,33 @@
             </form>
             <div class="dropdown-divider bt-2"></div>
             <div class="card-body p-0">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th><button class="table-sort">Sno</button></th>
-                    <th><button class="table-sort">Plan Amount</button></th>
-                  </tr>
-                </thead>
-
-                <tbody class="table-tbody">
-                  <tr v-show="isLoadingPlan">
-                    <td colspan="2">
-                      <Loader :isLoading="isLoadingPlan" />
-                    </td>
-                  </tr>
-                  <template v-for="(item, i) in plans" :key="item.id">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
                     <tr>
-                      <td class="sort-name">
-                        {{ ++i }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.amount }}
+                      <th>Sno</th>
+                      <th>Plan Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-tbody">
+                    <tr v-show="isLoadingPlan">
+                      <td colspan="2">
+                        <Loader :isLoading="isLoadingPlan" />
                       </td>
                     </tr>
-                  </template>
-                </tbody>
-              </table>
+                    <template v-for="(item, i) in plans" :key="item.id">
+                      <tr>
+                        <td class="sort-name">
+                          {{ ++i }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.amount }}
+                        </td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -126,6 +105,7 @@ import usePlan from "../../../composables/usePlan";
 import { onMounted, ref, toRefs, reactive } from "@vue/runtime-core";
 import useNavigation from "../../../composables/useNavigation";
 import CustomerCard from "../../../components/Widget/CustomerCard/CustomerCard.vue";
+import BackButton from "../../../components/Buttons/BackButton/BackButton.vue";
 undefined;
 undefined;
 export default {
@@ -134,6 +114,7 @@ export default {
     Tittle,
     Loader,
     CustomerCard,
+    BackButton,
   },
   setup() {
     const { router, route } = useNavigation();

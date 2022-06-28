@@ -5,20 +5,13 @@
         <template v-slot:pre-tittle>About</template>
         <template v-slot:page-tittle> About Expense Manager </template>
         <template v-slot:right-side-content>
-          <div class="btn-list">
-            <span class="d-none d-sm-inline">
+          <div class="btn-list float-end">
+            <span class="d-sm-inline">
               <router-link :to="{ name: 'home' }" class="btn btn-dark">
                 Home
               </router-link>
             </span>
-            <button
-              type="button"
-              class="btn btn-primary d-none d-sm-inline-block"
-              @click="this.$router.go(-1)"
-            >
-              <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-              Back
-            </button>
+            <BackButton />
           </div>
         </template>
       </Tittle>
@@ -58,8 +51,9 @@
 <script>
 import Tittle from "../../layout/Tittle/Tittle.vue";
 import MainLayout from "../../layout/Main/Main.vue";
+import BackButton from "../../../components/Buttons/BackButton/BackButton.vue";
 export default {
-  components: { Tittle, MainLayout },
+  components: { Tittle, MainLayout, BackButton },
 };
 </script>
 

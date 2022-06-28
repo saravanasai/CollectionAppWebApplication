@@ -5,7 +5,7 @@
         <div class="card-body">
           <div class="card-title">
             <div>
-              Name: <strong>{{ customer.firstName }}</strong>
+              Name: <strong>{{ customer.firstName }}  {{customer.secondName}}</strong>
             </div>
             <div>
               Member ID: <strong>{{ customer.customerId }}</strong>

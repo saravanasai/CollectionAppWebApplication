@@ -5,35 +5,13 @@
         <template v-slot:pre-tittle>All Agents</template>
         <template v-slot:page-tittle>All Agents</template>
         <template v-slot:right-side-content>
-          <div class="btn-list">
-            <span class="d-none d-sm-inline">
+          <div class="btn-list float-end">
+            <span class="d-sm-inline">
               <router-link :to="{ name: 'home' }" class="btn btn-dark"
                 >Home</router-link
               >
             </span>
-            <router-link
-              class="btn btn-primary d-none d-sm-inline-block"
-              :to="{ name: 'dashboard' }"
-            >
-              <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              Dashboard
-            </router-link>
+            <BackButton />
           </div>
         </template>
       </Tittle>
@@ -76,7 +54,6 @@
                     <LocationSelect
                       v-model="agent_location_id"
                       :value="agent_location_id"
-
                     />
                   </div>
                 </div>
@@ -111,39 +88,41 @@
               <div class="center" v-show="isLoadingAgent">
                 <Loader :isLoading="isLoadingAgent" />
               </div>
-              <table class="table" id="agentTable">
-                <thead>
-                  <tr>
-                    <th><button class="table-sort">Sno</button></th>
-                    <th><button class="table-sort">Agent ID</button></th>
-                    <th><button class="table-sort">Agent Name</button></th>
-                    <th><button class="table-sort">Agent Phone</button></th>
-                    <th><button class="table-sort">Location</button></th>
-                  </tr>
-                </thead>
-
-                <tbody class="table-tbody">
-                  <template v-for="(item, i) in agents" :key="item.id">
+              <div class="table-responsive">
+                <table class="table" id="agentTable">
+                  <thead>
                     <tr>
-                      <td class="sort-name">
-                        {{ ++i }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.agentId }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.agentName }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.agentPhone }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.agentLocation?.locationName }}
-                      </td>
+                      <th><button class="table-sort">Sno</button></th>
+                      <th><button class="table-sort">Agent ID</button></th>
+                      <th><button class="table-sort">Agent Name</button></th>
+                      <th><button class="table-sort">Agent Phone</button></th>
+                      <th><button class="table-sort">Location</button></th>
                     </tr>
-                  </template>
-                </tbody>
-              </table>
+                  </thead>
+
+                  <tbody class="table-tbody">
+                    <template v-for="(item, i) in agents" :key="item.id">
+                      <tr>
+                        <td class="sort-name">
+                          {{ ++i }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.agentId }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.agentName }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.agentPhone }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.agentLocation?.locationName }}
+                        </td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -165,6 +144,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
 import LocationSelect from "../../../components/SelectBox/LocationSelect/LocationSelect.vue";
+import BackButton from "../../../components/Buttons/BackButton/BackButton.vue";
 
 export default {
   components: {
@@ -173,6 +153,7 @@ export default {
     Loader,
     CustomerCard,
     LocationSelect,
+    BackButton,
   },
   setup() {
     const { router, route } = useNavigation();
