@@ -23891,7 +23891,7 @@ var _hoisted_44 = {
 
 var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "form-label"
-}, "Select Agent", -1
+}, "Select Scheme", -1
 /* HOISTED */
 );
 
