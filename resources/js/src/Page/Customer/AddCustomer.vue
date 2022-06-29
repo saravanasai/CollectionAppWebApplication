@@ -140,7 +140,7 @@
                     </div>
                     <div class="col-sm-6 col-md-6">
                       <div class="form-group mb-3">
-                        <label class="form-label">Select Agent</label>
+                        <label class="form-label">Select Scheme</label>
                         <div>
                           <SchemeSelect  v-model="scheme_id" :value="scheme_id" />
                         </div>
