@@ -47,11 +47,11 @@
           <div class="col-md-4">
             <div class="card">
               <div class="card-body">
-                <div class="subheader">Collection Total</div>
+                <div class="subheader">Total Amount</div>
                 <div class="h3 my-2">
                   {{ customer.collection?.collection_total_due }}
                 </div>
-                <div class="subheader">Collection Balance</div>
+                <div class="subheader">balance</div>
                 <div class="h3 my-2">
                   {{ customer.collection?.collection_balance_due }}
                 </div>
@@ -61,7 +61,7 @@
           <div class="col-md-4">
             <div class="card">
               <div class="card-body">
-                <div class="subheader">Total Transaction</div>
+                <div class="subheader">Paid Amount</div>
                 <div class="h3 m-0">{{ customerTransactionsTotal }}</div>
               </div>
             </div>

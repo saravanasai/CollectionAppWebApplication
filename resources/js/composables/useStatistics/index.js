@@ -4,12 +4,15 @@ import api from "../../config";
 
 export default function useStatistics() {
     const staticsPlanUrl = "/statistics/plan";
+    const staticsAgentUrl = "/statistics/agent";
     const staticsLocationUrl = "/statistics/location";
     const staticsDashboardUrl = "/statistics/dashboard";
 
     const state = reactive({
         planStatistics: {},
         isLoadingPlanStatistics: true,
+        agentStatistics: {},
+        isLoadingAgentStatistics: true,
         locationStatistics: {},
         isLoadingLocationStatistics: true,
         dashboardStatistics: {},
@@ -20,6 +23,13 @@ export default function useStatistics() {
         api.get(staticsPlanUrl).then((e) => {
             state.planStatistics = e.data.data;
             state.isLoadingPlanStatistics = false;
+        });
+    };
+
+    const getAgentStatics = async () => {
+        api.get(staticsAgentUrl).then((e) => {
+            state.agentStatistics = e.data.data;
+            state.isLoadingAgentStatistics = false;
         });
     };
 
@@ -42,6 +52,7 @@ export default function useStatistics() {
         ...toRefs(state),
         getPlanStatics,
         getLocationStatics,
-        getDashboardStatics
+        getDashboardStatics,
+        getAgentStatics
     };
 }

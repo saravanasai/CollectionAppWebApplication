@@ -17,9 +17,9 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_id')->unique();
             $table->string('f_username')->comment('customer first name');
-            $table->string('s_username')->comment('customer last name');
+            $table->string('s_username')->comment('customer last name')->nullable()->default(null);
             $table->string('primary_phone')->comment('customer primary phone number');
-            $table->string('secondary_phone')->comment('customer secondary phone number');
+            $table->string('secondary_phone')->comment('customer secondary phone number')->nullable()->default(null);
             $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')->references('id')->on('locations');
             $table->unsignedBigInteger('plan_id');

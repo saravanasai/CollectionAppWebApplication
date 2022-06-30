@@ -172,7 +172,10 @@ export default {
       getSchemes();
 
       setTimeout(() => {
-        schemeTable = $("#schemeTable").DataTable();
+        schemeTable = $("#schemeTable").DataTable({
+            iDisplayLength: 100,
+            lengthChange: false
+          });
       }, 2000);
     });
 
@@ -196,7 +199,10 @@ export default {
           schemeTable.destroy();
 
           setTimeout(() => {
-            $("#schemeTable").DataTable();
+            $("#schemeTable").DataTable({
+            iDisplayLength: 100,
+            lengthChange: false
+          });
           }, 2000);
         }
       });

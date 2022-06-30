@@ -172,7 +172,10 @@ export default {
       getAgents();
 
       setTimeout(() => {
-        agentTable = $("#agentTable").DataTable();
+        agentTable = $("#agentTable").DataTable({
+          iDisplayLength: 100,
+          lengthChange: false,
+        });
       }, 2000);
     });
 
@@ -196,7 +199,10 @@ export default {
           agentTable.destroy();
 
           setTimeout(() => {
-            $("#agentTable").DataTable();
+            $("#agentTable").DataTable({
+              iDisplayLength: 100,
+              lengthChange: false,
+            });
           }, 2000);
         }
       });

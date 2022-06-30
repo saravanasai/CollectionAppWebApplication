@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Statistics;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Statistics\StatisticAgentResource;
 use App\Http\Resources\Statistics\StatisticLocationResource;
 use App\Http\Resources\Statistics\StatisticPlanResource;
 use App\Models\Agent\Agent;
@@ -14,8 +15,6 @@ use Illuminate\Support\Facades\DB;
 class StatisticsContoller extends Controller
 {
 
-
-
     public function planStatistics()
     {
 
@@ -24,7 +23,6 @@ class StatisticsContoller extends Controller
             ->selectRaw('count(customers.id) as number_of_users,plans.*')
             ->groupBy('customers.plan_id')
             ->get();
-
 
         return StatisticPlanResource::collection($plan_statistics);
     }
@@ -39,9 +37,22 @@ class StatisticsContoller extends Controller
             ->groupBy('customers.location_id')
             ->get();
 
-        // dd($location_statistics);
         return StatisticLocationResource::collection($location_statistics);
     }
+
+
+    public function agentStatistics()
+    {
+
+        $agent_statistics =   DB::table('customers')
+            ->join('agents', 'customers.refered_agent_id', '=', 'agents.id')
+            ->selectRaw('count(customers.id) as number_of_users,agents.*')
+            ->groupBy('customers.refered_agent_id')
+            ->get();
+
+        return StatisticAgentResource::collection($agent_statistics);
+    }
+
 
 
 
@@ -53,13 +64,13 @@ class StatisticsContoller extends Controller
         $TotalCollection = Collection::sum('collection_total_due');
         $TotalCollectionBalance = Collection::sum('collection_balance_due');
 
-        $responseData=[
-            "userCount"=>$userCount,
-            "agentCount"=>$agentCount,
-            "TotalCollection"=>(int) $TotalCollection,
-            "TotalCollectionBalance"=>(int)$TotalCollectionBalance,
+        $responseData = [
+            "userCount" => $userCount,
+            "agentCount" => $agentCount,
+            "TotalCollection" => (int) $TotalCollection,
+            "TotalCollectionBalance" => (int)$TotalCollectionBalance,
         ];
 
-        return response()->json(["data"=>$responseData]);
+        return response()->json(["data" => $responseData]);
     }
 }

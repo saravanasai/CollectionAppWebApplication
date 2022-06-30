@@ -11,7 +11,7 @@
                 >Home</router-link
               >
             </span>
-             <BackButton />
+            <BackButton />
           </div>
         </template>
       </Tittle>
@@ -78,31 +78,31 @@
                 <Loader :isLoading="isLoadingLocation" />
               </div>
               <div class="table-responsive">
-              <table class="table" id="locationTable">
-                <thead>
-                  <tr>
-                    <th><button class="table-sort">Sno</button></th>
-                    <th><button class="table-sort">Location ID</button></th>
-                    <th><button class="table-sort">Location Name</button></th>
-                  </tr>
-                </thead>
-
-                <tbody class="table-tbody">
-                  <template v-for="(item, i) in locations" :key="item.id">
+                <table class="table" id="locationTable">
+                  <thead>
                     <tr>
-                      <td class="sort-name">
-                        {{ ++i }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.locationId }}
-                      </td>
-                      <td class="sort-city">
-                        {{ item.locationName }}
-                      </td>
+                      <th><button class="table-sort">Sno</button></th>
+                      <th><button class="table-sort">Location ID</button></th>
+                      <th><button class="table-sort">Location Name</button></th>
                     </tr>
-                  </template>
-                </tbody>
-              </table>
+                  </thead>
+
+                  <tbody class="table-tbody">
+                    <template v-for="(item, i) in locations" :key="item.id">
+                      <tr>
+                        <td class="sort-name">
+                          {{ ++i }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.locationId }}
+                        </td>
+                        <td class="sort-city">
+                          {{ item.locationName }}
+                        </td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -132,8 +132,8 @@ export default {
     Tittle,
     Loader,
     CustomerCard,
-    BackButton
-},
+    BackButton,
+  },
   setup() {
     const { router, route } = useNavigation();
 
@@ -151,7 +151,10 @@ export default {
       getLocations();
 
       setTimeout(() => {
-        table = $("#locationTable").DataTable();
+        table = $("#locationTable").DataTable({
+          iDisplayLength: 100,
+          lengthChange: false,
+        });
       }, 2000);
     });
 
@@ -172,7 +175,10 @@ export default {
           table.destroy();
           getLocations();
           setTimeout(() => {
-            $("#locationTable").DataTable();
+            $("#locationTable").DataTable({
+              iDisplayLength: 100,
+              lengthChange: false,
+            });
           }, 2000);
         }
       });

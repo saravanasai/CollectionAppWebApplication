@@ -56,6 +56,7 @@
           />
           <PlanStatistics />
           <LocationStatistics />
+          <AgentStatistics />
         </div>
       </div>
     </template>
@@ -75,6 +76,7 @@ import PlanStatistics from "../../../components/Statistics/PlanStatistics/PlanSt
 import LocationStatistics from "../../../components/Statistics/LocationStatistics/LocationStatistics.vue";
 import useStatistics from "../../../composables/useStatistics";
 import BackButton from "../../../components/Buttons/BackButton/BackButton.vue";
+import AgentStatistics from "../../../components/Statistics/AgentStatistics/AgentStatistics.vue";
 export default {
   components: {
     MainLayout,
@@ -86,7 +88,8 @@ export default {
     PlanStatistics,
     LocationStatistics,
     BackButton,
-  },
+    AgentStatistics
+},
   setup() {
     const {
       dashboardStatistics,

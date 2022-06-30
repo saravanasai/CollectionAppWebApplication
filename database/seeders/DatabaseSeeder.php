@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
             "is_admin"=>1,
         ]);
 
-        $this->call(LocationSeeder::class);
-        $this->call(AgentSeeder::class);
+        // $this->call(LocationSeeder::class);
+        // $this->call(AgentSeeder::class);
 
         $this->call(PlanSeeder::class);
         $this->call(SchemeSeeder::class);

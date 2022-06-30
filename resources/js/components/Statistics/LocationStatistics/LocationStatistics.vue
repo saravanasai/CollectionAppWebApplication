@@ -7,29 +7,29 @@
       <div class="center" v-show="isLoadingLocationStatistics">
         <Loader :isLoading="isLoadingLocationStatistics" />
       </div>
-        <div class="card p-2">
-      <table
-        id="locationStatictsTable"
-        class="table card-table"
-        v-show="!isLoadingLocationStatistics"
-      >
-        <thead>
-          <tr>
-            <th>Location Name</th>
-            <th>Members</th>
-          </tr>
-        </thead>
-        <tbody>
-          <template v-for="item in locationStatistics" :key="item.id">
+      <div class="card p-2">
+        <table
+          id="locationStatictsTable"
+          class="table card-table"
+          v-show="!isLoadingLocationStatistics"
+        >
+          <thead>
             <tr>
-              <td>{{ item.locationName }}</td>
-              <td>
-                <span class="badge bg-success-lt">{{ item.noUsers }}</span>
-              </td>
+              <th>Location Name</th>
+              <th>Members</th>
             </tr>
-          </template>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <template v-for="item in locationStatistics" :key="item.id">
+              <tr>
+                <td>{{ item.locationName }}</td>
+                <td>
+                  <span class="badge bg-success-lt">{{ item.noUsers }}</span>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -59,11 +59,12 @@ export default {
     } = useStatistics();
     onMounted(() => {
       getLocationStatics().then(() => {
-
-         setTimeout(()=>{
-                 locationStaticsTable = $("#locationStatictsTable").DataTable();
-            },2500)
-
+        setTimeout(() => {
+          locationStaticsTable = $("#locationStatictsTable").DataTable({
+            iDisplayLength: 100,
+            lengthChange: false
+          });
+        }, 2500);
       });
     });
     return { locationStatistics, isLoadingLocationStatistics };

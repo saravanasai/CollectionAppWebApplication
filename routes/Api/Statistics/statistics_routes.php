@@ -22,6 +22,7 @@ Route::group(['middleware'=>'auth:sanctum'],function()
 {
 
     Route::get('statistics/plan',[StatisticsContoller::class,'planStatistics']);
+    Route::get('statistics/agent',[StatisticsContoller::class,'agentStatistics']);
     Route::get('statistics/location',[StatisticsContoller::class,'locationStatistics']);
     Route::get('statistics/dashboard',[StatisticsContoller::class,'dashboardStatistics']);
 

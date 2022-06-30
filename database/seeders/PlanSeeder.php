@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 class PlanSeeder extends Seeder
 {
     public $plan_list = [
-        100, 200, 300, 500, 1000
+        250, 300, 500, 1000
     ];
     /**
      * Run the database seeds.

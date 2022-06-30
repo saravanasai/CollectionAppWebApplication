@@ -130,7 +130,7 @@ class Customer extends Model
      */
     public function scopeAmountBalanceFilter($query,$amount)
     {
-        return  $query->whereRelation('Collection','collection_balance_due','<=',$amount);
+        return  $query->whereRelation('Collection','collection_balance_due','>',$amount);
     }
 
 }

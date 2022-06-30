@@ -2,27 +2,29 @@
   <div class="col-md-6 col-lg-6 col-sm-12">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Members On Plan</h3>
+        <h3 class="card-title">Members By Agent</h3>
       </div>
-      <div class="center" v-show="isLoadingPlanStatistics">
-        <Loader :isLoading="isLoadingPlanStatistics" />
+      <div class="center" v-show="isLoadingAgentStatistics">
+        <Loader :isLoading="isLoadingAgentStatistics" />
       </div>
       <div class="card p-2">
         <table
+          id="agentStatictsTable"
           class="table card-table"
-          id="planStatictsTable"
-          v-show="!isLoadingPlanStatistics"
+          v-show="!isLoadingAgentStatistics"
         >
           <thead>
             <tr>
-              <th>Plan</th>
+              <th>Agent ID</th>
+              <th>Agent Name</th>
               <th>Members</th>
             </tr>
           </thead>
           <tbody>
-            <template v-for="item in planStatistics" :key="item.id">
+            <template v-for="item in agentStatistics" :key="item.id">
               <tr>
-                <td>{{ item.plan }}</td>
+                <td>{{ item.agentId }}</td>
+                <td>{{ item.agentName }}</td>
                 <td>
                   <span class="badge bg-success-lt">{{ item.noUsers }}</span>
                 </td>
@@ -51,20 +53,23 @@ export default {
     },
   },
   setup() {
-    let planStaticsTable = "";
-    const { planStatistics, getPlanStatics, isLoadingPlanStatistics } =
-      useStatistics();
+    let agentStaticsTable = "";
+    const {
+      getAgentStatics,
+      agentStatistics,
+      isLoadingAgentStatistics,
+    } = useStatistics();
     onMounted(() => {
-      getPlanStatics().then(() => {
+      getAgentStatics().then(() => {
         setTimeout(() => {
-          planStaticsTable = $("#planStatictsTable").DataTable({
+          agentStaticsTable = $("#agentStatictsTable").DataTable({
             iDisplayLength: 100,
-            lengthChange: false,
+            lengthChange: false
           });
         }, 2500);
       });
     });
-    return { planStatistics, isLoadingPlanStatistics };
+    return { agentStatistics, isLoadingAgentStatistics };
   },
   components: { Loader },
 };

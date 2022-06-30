@@ -55,7 +55,7 @@
                         <div class="subheader">Total</div>
                       </div>
                       <div class="d-flex align-items-baseline">
-                        <div class="h1 mb-0 me-2">{{total}}</div>
+                        <div class="h1 mb-0 me-2">{{ total }}</div>
                       </div>
                     </div>
                   </div>
@@ -68,7 +68,6 @@
                 <Loader :isLoading="isLoadingTransaction" />
               </div>
               <div class="table-responsive">
-
                 <table class="table" id="TransactionReportTable">
                   <thead>
                     <tr>
@@ -152,8 +151,11 @@ export default {
     onMounted(() => {
       getAllTransactions().then((e) => {
         setTimeout(() => {
-            state.total= totalSum()
-          TransactionReporttable = $("#TransactionReportTable").DataTable();
+          state.total = totalSum();
+          TransactionReporttable = $("#TransactionReportTable").DataTable({
+            iDisplayLength: 100,
+            lengthChange: false,
+          });
         }, 2000);
       });
     });
@@ -162,14 +164,17 @@ export default {
       TransactionReporttable.destroy();
       getAllTransactions(state.fromDate, state.toDate).then((e) => {
         setTimeout(() => {
-          state.total= totalSum()
-          TransactionReporttable = $("#TransactionReportTable").DataTable();
+          state.total = totalSum();
+          TransactionReporttable = $("#TransactionReportTable").DataTable({
+            iDisplayLength: 100,
+            lengthChange: false,
+          });
         }, 2000);
       });
     };
 
     const totalSum = () => {
-     return transactions.value.reduce((total, item) => {
+      return transactions.value.reduce((total, item) => {
         return (total += Number(item.transactionAmount));
       }, 0);
     };
@@ -179,7 +184,7 @@ export default {
       transactions,
       isLoadingTransaction,
       handleReportFilter,
-      totalSum
+      totalSum,
     };
   },
 };
