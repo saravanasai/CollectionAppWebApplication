@@ -84,9 +84,9 @@
                       <th><button class="table-sort">Sno</button></th>
                       <th><button class="table-sort">Location ID</button></th>
                       <th><button class="table-sort">Location Name</button></th>
+                      <th>Action</th>
                     </tr>
                   </thead>
-
                   <tbody class="table-tbody">
                     <template v-for="(item, i) in locations" :key="item.id">
                       <tr>
@@ -98,6 +98,11 @@
                         </td>
                         <td class="sort-city">
                           {{ item.locationName }}
+                        </td>
+                        <td>
+                            <router-link :to="{name:'edit-location',params:{id:item.id}}" class="btn btn-dark">
+                                Edit
+                            </router-link>
                         </td>
                       </tr>
                     </template>

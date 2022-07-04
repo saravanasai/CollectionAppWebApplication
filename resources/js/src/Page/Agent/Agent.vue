@@ -24,19 +24,6 @@
               <div class="row">
                 <div class="col-md-4 col-sm-12">
                   <div class="mb-3">
-                    <label class="form-label">Agent Phone</label>
-                    <input
-                      v-model="agent_phone"
-                      type="number"
-                      class="form-control"
-                      name="example-text-input"
-                      placeholder="Enter Phone Number"
-                      required
-                    />
-                  </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                  <div class="mb-3">
                     <label class="form-label">Agent Name</label>
                     <input
                       v-model="agent_name"
@@ -44,6 +31,19 @@
                       class="form-control"
                       name="example-text-input"
                       placeholder="Enter Location Name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label">Agent Phone</label>
+                    <input
+                      v-model="agent_phone"
+                      type="number"
+                      class="form-control"
+                      name="example-text-input"
+                      placeholder="Enter Phone Number"
                       required
                     />
                   </div>
@@ -97,6 +97,7 @@
                       <th><button class="table-sort">Agent Name</button></th>
                       <th><button class="table-sort">Agent Phone</button></th>
                       <th><button class="table-sort">Location</button></th>
+                      <th>Action</th>
                     </tr>
                   </thead>
 
@@ -117,6 +118,11 @@
                         </td>
                         <td class="sort-city">
                           {{ item.agentLocation?.locationName }}
+                        </td>
+                        <td>
+                            <router-link :to="{name:'agent-edit',params:{id:item.id}}" class="btn btn-dark">
+                                Edit
+                            </router-link>
                         </td>
                       </tr>
                     </template>

@@ -25,7 +25,7 @@ class CustomerMasterController extends Controller
 
         if ($request->has('searchKey') && $request->searchKey != '') {
 
-            $query->search($request->searchKey);
+            $query->search($request->searchKey)->take(10);
         }
 
         if ($request->has('location') && $request->location != 0) {
@@ -44,8 +44,10 @@ class CustomerMasterController extends Controller
             $query->amountBalanceFilter($request->amount);
         }
 
-        $customer = $query->with(['Location', 'Plan', 'Agent','Collection'])
+        $customer = $query->with(['Location', 'Plan', 'Agent', 'Collection'])
             ->orderBy('customer_id', 'ASC')
+            ->orderBy('f_username', 'ASC')
+            ->orderBy('primary_phone', 'ASC')
             ->get();
 
         return CustomerResource::collection($customer);

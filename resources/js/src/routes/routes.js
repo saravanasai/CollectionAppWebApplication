@@ -14,14 +14,15 @@ import SingleCustomerTransaction from "../Page/Transaction/SingleCustomerTransac
 import Pay from "../Page/Pay/Pay.vue";
 import Plan from "../Page/Plan/Plan.vue";
 import Location from "../Page/Location/Location.vue";
+import EditLocation from "../Page/Location/EditLocation.vue";
 import Agent from "../Page/Agent/Agent.vue";
+import EditAgent from "../Page/Agent/EditAgent.vue";
 import Scheme from "../Page/Scheme/Scheme.vue";
 import AdvanceFilter from "../Page/AdvanceFilter/AdvanceFilter.vue";
 import OpenSearch from "../Page/OpenSearch/OpenSearch.vue";
 import TransactionReport from "../Page/TransactionReport/TransactionReport.vue";
 
 const routes = [
-
     {
         path: "/reports",
         name: "reports",
@@ -50,9 +51,24 @@ const routes = [
         meta: { requiresAuth: true },
     },
     {
+        path: "/agent/:id/edit",
+        name: "agent-edit",
+        component: EditAgent,
+        props: true,
+        meta: { requiresAuth: true },
+    },
+    {
         path: "/all-agents",
         name: "agents",
         component: Agent,
+        props: true,
+        meta: { requiresAuth: true },
+    },
+
+    {
+        path: "/location/:id/edit",
+        name: "edit-location",
+        component: EditLocation,
         props: true,
         meta: { requiresAuth: true },
     },
@@ -60,7 +76,7 @@ const routes = [
         path: "/location",
         name: "location",
         component: Location,
-        props: true,
+        props: false,
         meta: { requiresAuth: true },
     },
     {
@@ -84,6 +100,8 @@ const routes = [
         props: true,
         meta: { requiresAuth: false },
     },
+
+
     {
         path: "/customer/:id/edit",
         name: "customer-edit",

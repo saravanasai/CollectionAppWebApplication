@@ -7,6 +7,7 @@ export default function useAgent() {
 
     const state = reactive({
         agents: {},
+        agent: {},
         isLoadingAgent: true,
     });
 
@@ -17,14 +18,32 @@ export default function useAgent() {
         });
     };
 
-    const addAgent = (data)=>{
+    const getAgent = async (id) => {
+        api.get(url + "/" + id).then((e) => {
+            state.agent = e.data.data;
+            state.isLoadingAgent = false;
+        });
+    };
 
-        return api.post(url,data)
-    }
+    const addAgent = (data) => {
+        return api.post(url, data);
+    };
+
+    const updateAgent = async (id) => {
+        let data = {
+            agent_name: state.agent.agentName,
+            agent_phone: state.agent.agentPhone,
+            agent_location_id: state.agent.agentLocationId,
+        };
+
+        return api.put(url + "/" + id, data);
+    };
 
     return {
         ...toRefs(state),
         getAgents,
-        addAgent
+        getAgent,
+        updateAgent,
+        addAgent,
     };
 }

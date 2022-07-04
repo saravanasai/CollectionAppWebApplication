@@ -51,9 +51,9 @@ class AgentMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Agent $agent)
     {
-        //
+        return AgentResource::make($agent);
     }
 
     /**
@@ -63,9 +63,25 @@ class AgentMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Agent $agent)
     {
-        //
+
+        $this->validate($request, [
+            "agent_name" => ['required'],
+            "agent_phone" => ['required', 'numeric'],
+            "agent_location_id" => ['required'],
+        ]);
+
+
+        $isUpdated = $agent->update([
+            "agent_name" => $request->agent_name,
+            "agent_phone" => $request->agent_phone,
+            "agent_location_id" => $request->agent_location_id
+        ]);
+
+        return $isUpdated
+            ?  response()->json(["message" => "Agent Information Updated"], 200)
+            :  response()->json(["message" => "Something Went Wrong"], 500);
     }
 
     /**

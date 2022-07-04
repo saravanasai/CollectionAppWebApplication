@@ -62,10 +62,11 @@ export default {
     Tittle,
     Loader,
     CustomerCard,
-    BackButton
-},
+    BackButton,
+  },
   setup() {
     const searchKey = ref("");
+    const debounce = ref(null);
 
     const { router, route } = useNavigation();
 
@@ -76,8 +77,12 @@ export default {
     });
 
     const handleSearch = () => {
-      getCustomers(searchKey.value);
+      clearTimeout(debounce.value);
+      debounce.value = setTimeout(() => {
+        getCustomers(searchKey.value);
+      }, 600);
     };
+
     return { customers, searchKey, handleSearch, isLoadingCustomer };
   },
 };

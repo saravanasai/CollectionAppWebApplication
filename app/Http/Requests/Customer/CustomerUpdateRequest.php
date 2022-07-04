@@ -25,9 +25,9 @@ class CustomerUpdateRequest extends FormRequest
     {
         return [
             "f_username" => ['required'],
-            "s_username" => ['required'],
+            "s_username" => ['sometimes'],
             "primary_phone" => ['required'],
-            "secondary_phone" => ['required'],
+            "secondary_phone" => ['sometimes'],
             "location_id" => ['required'],
             "refered_agent_id" => ['required'],
         ];

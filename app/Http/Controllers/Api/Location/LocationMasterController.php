@@ -27,12 +27,12 @@ class LocationMasterController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            "location_id"=>['required','unique:locations,location_id','numeric'],
-            "location_name"=>['required'],
+        $this->validate($request, [
+            "location_id" => ['required', 'unique:locations,location_id', 'numeric'],
+            "location_name" => ['required'],
         ]);
 
-        return LocationResource::make(Location::create(["location_id"=>$request->location_id,"location_name"=>$request->location_name]));
+        return LocationResource::make(Location::create(["location_id" => $request->location_id, "location_name" => $request->location_name]));
     }
 
     /**
@@ -41,9 +41,9 @@ class LocationMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Location $location)
     {
-        //
+        return LocationResource::make($location);
     }
 
     /**
@@ -53,9 +53,19 @@ class LocationMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Location $location)
     {
-        //
+        $this->validate($request, [
+            "location_name" => ['required'],
+        ]);
+
+        $isUpdated = $location->update([
+            "location_name" => $request->location_name,
+        ]);
+
+        return $isUpdated
+            ?  response()->json(["message" => "Location Information Updated"], 200)
+            :  response()->json(["message" => "Something Went Wrong"], 500);
     }
 
     /**
