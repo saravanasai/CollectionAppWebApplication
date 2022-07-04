@@ -25,7 +25,7 @@ class CustomerMasterController extends Controller
 
         if ($request->has('searchKey') && $request->searchKey != '') {
 
-            $query->search($request->searchKey)->take(10);
+            $query->search($request->searchKey)->take(50);
         }
 
         if ($request->has('location') && $request->location != 0) {
@@ -46,8 +46,7 @@ class CustomerMasterController extends Controller
 
         $customer = $query->with(['Location', 'Plan', 'Agent', 'Collection'])
             ->orderBy('customer_id', 'ASC')
-            ->orderBy('f_username', 'ASC')
-            ->orderBy('primary_phone', 'ASC')
+            ->take(100)
             ->get();
 
         return CustomerResource::collection($customer);
