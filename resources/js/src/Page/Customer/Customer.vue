@@ -80,7 +80,7 @@ export default {
       clearTimeout(debounce.value);
       debounce.value = setTimeout(() => {
         getCustomers(searchKey.value);
-      }, 600);
+      }, 800);
     };
 
     return { customers, searchKey, handleSearch, isLoadingCustomer };

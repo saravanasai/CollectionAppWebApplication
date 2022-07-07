@@ -11,6 +11,7 @@
             <AnchorButton :btnTxt="'Transaction List'" :To="'reports'" />
             <AnchorButton :btnTxt="'Complement'" />
             <AnchorButton :btnTxt="'Scheme List'" :To="'scheme'" />
+            <AnchorButton :btnTxt="'Reports'" :To="'reports-shareable'" />
           </div>
         </div>
         <div class="row">

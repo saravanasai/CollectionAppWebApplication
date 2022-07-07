@@ -128,10 +128,29 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                      <div class="form-group mb-3">
+                        <label class="form-label">Select Plan</label>
+                        <div>
+                          <PlanSelect
+                            v-model="customer.planId"
+                            :value="customer.planId"
+                            :disabled="!planChanged"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div class="form-footer">
-                    <button type="submit" class="btn btn-primary float-end">
-                      Update
-                    </button>
+                    <div class="d-flex justify-content-around">
+                      <button type="button" @click="planChanged=!planChanged" class="btn btn-dark">
+                        Change Plan
+                      </button>
+                      <button type="submit" class="btn btn-primary">
+                        Update
+                      </button>
+                    </div>
                   </div>
                 </form>
               </div>
@@ -164,8 +183,8 @@ export default {
     LocationSelect,
     PlanSelect,
     AgentSelect,
-    BackButton
-},
+    BackButton,
+  },
   props: {
     id: Number,
   },
@@ -179,6 +198,8 @@ export default {
       secondary_phone: "",
       location_id: 0,
       agent_id: 0,
+      plan_id: 0,
+      planChanged:false,
     });
 
     const { customer, getCustomer, updateCustomer } = useCustomer();
@@ -188,7 +209,7 @@ export default {
     });
 
     const handleSubmission = () => {
-      updateCustomer(props.id)
+      updateCustomer(props.id,state.planChanged)
         .then((e) => {
           if (e.status === 200) {
             Swal.fire({

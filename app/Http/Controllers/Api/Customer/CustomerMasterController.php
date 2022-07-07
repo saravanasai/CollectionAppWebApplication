@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Customer;
 
 use App\Action\Collection\CollectionAction;
+use App\Action\Collection\CollectionUpdateAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\CustomerStoreRequest;
 use App\Http\Requests\Customer\CustomerUpdateRequest;
@@ -25,7 +26,7 @@ class CustomerMasterController extends Controller
 
         if ($request->has('searchKey') && $request->searchKey != '') {
 
-            $query->search($request->searchKey)->take(50);
+            $query->search($request->searchKey)->take(10);
         }
 
         if ($request->has('location') && $request->location != 0) {
@@ -44,9 +45,13 @@ class CustomerMasterController extends Controller
             $query->amountBalanceFilter($request->amount);
         }
 
+        if($request->has('take') && $request->take!=0)
+        {
+            $query->take($request->take);
+        }
+
         $customer = $query->with(['Location', 'Plan', 'Agent', 'Collection'])
             ->orderBy('customer_id', 'ASC')
-            ->take(100)
             ->get();
 
         return CustomerResource::collection($customer);
@@ -97,10 +102,16 @@ class CustomerMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomerUpdateRequest $request, $id)
+    public function update(CustomerUpdateRequest $request, $id, CollectionUpdateAction $action)
     {
         $customer = Customer::query()
             ->find($id);
+
+        //checking if the plan changed on update
+        if ($request->is_plan_changed) {
+            //action only updated the collection Table
+            $action->execute($id, $request->plan_id);
+        }
 
         $customer->update($request->validated());
 

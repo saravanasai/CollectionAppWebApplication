@@ -1,5 +1,5 @@
 <template>
-  <select class="form-select required" v-model="value">
+  <select class="form-select required" :disabled="disabled" v-model="value">
     <option id="0" value="0" :selected="true">Choose Plan</option>
     <template v-for="plan in plans" :key="plan.id">
       <option
@@ -22,6 +22,10 @@ export default {
     value: {
       default: 0,
       type: Number,
+    },
+     disabled: {
+      default: false,
+      type: Boolean,
     },
   },
   setup() {

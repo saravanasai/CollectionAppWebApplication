@@ -27,6 +27,7 @@ class CustomerResource extends JsonResource
             "primaryPhone"=>$this->primary_phone,
             "secondaryPhone"=>$this->secondary_phone,
             "locationId"=>$this->location_id,
+            "planId"=>$this->plan_id,
             "agentId"=>$this->refered_agent_id,
             "location"=>LocationResource::make($this->whenLoaded('Location')),
             "plan"=>PlanResource::make($this->whenLoaded('Plan')),

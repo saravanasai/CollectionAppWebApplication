@@ -21,8 +21,15 @@ import Scheme from "../Page/Scheme/Scheme.vue";
 import AdvanceFilter from "../Page/AdvanceFilter/AdvanceFilter.vue";
 import OpenSearch from "../Page/OpenSearch/OpenSearch.vue";
 import TransactionReport from "../Page/TransactionReport/TransactionReport.vue";
+import Reports from "../Page/Reports/Reports.vue";
 
 const routes = [
+    {
+        path: "/shareable/reports",
+        name: "reports-shareable",
+        component: Reports,
+        meta: { requiresAuth: true },
+    },
     {
         path: "/reports",
         name: "reports",
