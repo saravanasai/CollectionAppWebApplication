@@ -22,8 +22,24 @@ import AdvanceFilter from "../Page/AdvanceFilter/AdvanceFilter.vue";
 import OpenSearch from "../Page/OpenSearch/OpenSearch.vue";
 import TransactionReport from "../Page/TransactionReport/TransactionReport.vue";
 import Reports from "../Page/Reports/Reports.vue";
+import EditComplement from "../Page/Complement/EditComplement.vue";
+import Complement from "../Page/Complement/Complement.vue";
 
 const routes = [
+
+    {
+        path: "/shareable/complements",
+        name: "complement-shareable",
+        component: Complement,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/complement/:id/update",
+        name: "complement-edit",
+        component: EditComplement,
+        props: true,
+        meta: { requiresAuth: true },
+    },
     {
         path: "/shareable/reports",
         name: "reports-shareable",

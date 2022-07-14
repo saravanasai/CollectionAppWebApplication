@@ -2,8 +2,8 @@
   <MainLayout>
     <template v-slot:top-section>
       <Tittle>
-        <template v-slot:pre-tittle>Free Search</template>
-        <template v-slot:page-tittle>Free Search</template>
+        <template v-slot:pre-tittle>Complement Reports</template>
+        <template v-slot:page-tittle>Complement Advance Reports</template>
         <template v-slot:right-side-content>
           <div class="btn-list float-end">
             <span class="d-sm-inline">
@@ -11,7 +11,7 @@
                 >Home</router-link
               >
             </span>
-           <BackButton />
+            <BackButton />
           </div>
         </template>
       </Tittle>
@@ -43,18 +43,6 @@
               :value="planId"
             />
           </div>
-          <div class="col-md-3 col-sm-12">
-            <label class="form-label">Search (Member ID / Phone / Name)</label>
-            <input
-              @keyup="handleFilter"
-              v-model="searchKey"
-              type="text"
-              class="form-control"
-              name="example-text-input"
-              placeholder="Member ID / Phone / Name"
-              required
-            />
-          </div>
         </div>
         <div class="card-header justify-content-center"></div>
         <div
@@ -62,11 +50,21 @@
           style="max-height: 35rem"
         >
           <Loader :isLoading="isLoadingCustomer" />
-          <CustomerCard
+          <ComplementReportTable
+            :tableId="'advanceExportTable'"
+            :headers="[
+              'Sno',
+              'CustomerID',
+              'F-Name',
+              'S-Name',
+              'P-Phone',
+              'Plan',
+              'Location',
+              'Agent',
+              'Complement 1',
+              'Complement 2',
+            ]"
             :data="customers"
-            :showEditBtn="false"
-            :showPayBtn="false"
-            :showComplementBtn="false"
             v-if="!isLoadingCustomer"
           />
         </div>
@@ -79,7 +77,7 @@
 import MainLayout from "../../layout/Main/Main.vue";
 import Tittle from "../../layout/Tittle/Tittle.vue";
 import Loader from "../../../components/Loader/Loader.vue";
-import useFreeCustomer from "../../../composables/useFreeCustomer";
+import useCustomer from "../../../composables/useCustomer";
 import { onMounted, ref, toRefs, reactive } from "@vue/runtime-core";
 import useNavigation from "../../../composables/useNavigation";
 import CustomerCard from "../../../components/Widget/CustomerCard/CustomerCard.vue";
@@ -87,8 +85,16 @@ import LocationSelect from "../../../components/SelectBox/LocationSelect/Locatio
 import AgentSelect from "../../../components/SelectBox/AgentSelect/AgentSelect.vue";
 import PlanSelect from "../../../components/SelectBox/PlanSelect/PlanSelect.vue";
 import BackButton from "../../../components/Buttons/BackButton/BackButton.vue";
-undefined;
-undefined;
+import ComplementReportTable from "../../../components/Tables/ComplementReportTable/ComplementReportTable.vue";
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import "datatables.net-buttons/js/dataTables.buttons.js";
+import "datatables.net-buttons/js/buttons.colVis.js";
+import "datatables.net-buttons/js/buttons.flash.js";
+import "datatables.net-buttons/js/buttons.html5.js";
+import "datatables.net-buttons/js/buttons.print.js";
+import $ from "jquery";
 export default {
   components: {
     MainLayout,
@@ -98,9 +104,12 @@ export default {
     LocationSelect,
     AgentSelect,
     PlanSelect,
-    BackButton
-},
+    BackButton,
+    ComplementReportTable,
+  },
   setup() {
+    let reportsAdvanceTable = "";
+
     const state = reactive({
       searchKey: "",
       agentId: 0,
@@ -111,7 +120,7 @@ export default {
 
     const { router, route } = useNavigation();
 
-    const { customers, getCustomers, isLoadingCustomer } = useFreeCustomer();
+    const { customers, getCustomers, isLoadingCustomer } = useCustomer();
 
     onMounted(() => {
       getCustomers(
@@ -119,9 +128,33 @@ export default {
         state.locactionId,
         state.agentId,
         state.planId,
-        state.planAmount
-      );
+        state.planAmount,
+        0
+      ).then((e) => {
+        setTimeout(() => {
+          loadDataTable();
+        }, 2000);
+      });
     });
+
+    const loadDataTable = () => {
+      reportsAdvanceTable = $("#advanceExportTable").DataTable({
+        iDisplayLength: 100,
+        lengthChange: false,
+        searching: false,
+        dom: "Bfrtip",
+        buttons: [
+          {
+            extend: "csv",
+            className: "btn btn-primary glyphicon glyphicon-save-file  mb-3",
+          },
+          {
+            extend: "print",
+            className: "btn btn-primary glyphicon glyphicon-print  mb-3",
+          },
+        ],
+      });
+    };
 
     const handleFilter = () => {
       getCustomers(
@@ -129,8 +162,13 @@ export default {
         state.locactionId,
         state.agentId,
         state.planId,
-        state.planAmount
-      );
+        state.planAmount,
+        0
+      ).then((e) => {
+        setTimeout(() => {
+          loadDataTable();
+        }, 2000);
+      });
     };
     return { ...toRefs(state), customers, handleFilter, isLoadingCustomer };
   },

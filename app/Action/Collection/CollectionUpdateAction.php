@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Action\Collection;
+
 use App\Models\Collection\Collection;
 use App\Models\Plan\Plan;
 
@@ -8,13 +10,18 @@ class CollectionUpdateAction
 
     public function execute($customerId, $planId)
     {
-        $planAmount = Plan::find($planId)->plan_amount;
+        $newPlanAmount = Plan::find($planId)->plan_amount;
 
-        $collectionUpdated = Collection::find($customerId)->update([
+        $collection = Collection::find($customerId);
+
+        $amountPaidPreviously = ($collection->collection_total_due - $collection->collection_balance_due);
+
+        $collection->update([
             "plan_id" => $planId,
-            "collection_total_due" => $planAmount * 12,
+            "collection_total_due" => $newPlanAmount * 12,
+            "collection_balance_due" => ($newPlanAmount * 12) -  $amountPaidPreviously,
         ]);
 
-        return $collectionUpdated ? true : false;
+        return $collection ? true : false;
     }
 }

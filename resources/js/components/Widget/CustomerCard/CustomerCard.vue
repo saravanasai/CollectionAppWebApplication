@@ -5,7 +5,10 @@
         <div class="card-body">
           <div class="card-title">
             <div>
-              Name: <strong>{{ customer.firstName }}  {{customer.secondName}}</strong>
+              Name:
+              <strong
+                >{{ customer.firstName }} {{ customer.secondName }}</strong
+              >
             </div>
             <div>
               Member ID: <strong>{{ customer.customerId }}</strong>
@@ -126,6 +129,74 @@
             Balance Due: Rs/-
             <strong>{{ customer.collection?.collection_balance_due }}</strong>
           </div>
+          <div class="mb-2">
+            <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-list-details"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M13 5h8"></path>
+              <path d="M13 9h5"></path>
+              <path d="M13 15h8"></path>
+              <path d="M13 19h5"></path>
+              <rect x="3" y="4" width="6" height="6" rx="1"></rect>
+              <rect x="3" y="14" width="6" height="6" rx="1"></rect>
+            </svg>
+            Complement 1 :
+            <span
+              :class="
+                customer.complementOne
+                  ? 'badge bg-green-lt'
+                  : 'badge bg-danger-lt'
+              "
+            >
+              <template v-if="customer.complementOne"> Yes </template>
+              <template v-if="!customer.complementOne"> No </template>
+            </span>
+          </div>
+          <div class="mb-2">
+            <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-list-details"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M13 5h8"></path>
+              <path d="M13 9h5"></path>
+              <path d="M13 15h8"></path>
+              <path d="M13 19h5"></path>
+              <rect x="3" y="4" width="6" height="6" rx="1"></rect>
+              <rect x="3" y="14" width="6" height="6" rx="1"></rect>
+            </svg>
+            Complement 2 :
+            <span
+              :class="
+                customer.complementTwo
+                  ? 'badge bg-green-lt'
+                  : 'badge bg-danger-lt'
+              "
+            >
+              <template v-if="customer.complementTwo"> Yes </template>
+              <template v-if="!customer.complementTwo"> No </template>
+            </span>
+          </div>
           <div>
             <!-- Download SVG icon from http://tabler-icons.io/i/clock -->
             <svg
@@ -146,21 +217,39 @@
             </svg>
             Plan: Rs/-<strong>{{ customer.plan.amount }}</strong>
           </div>
+          <div class="mt-2 float-end">
+            <router-link
+              v-show="showComplementBtn"
+              :to="{ name: 'complement-edit', params: { id: customer.id } }"
+              class="btn btn-success ms-auto mx-1"
+              >Complement</router-link
+            >
+          </div>
         </div>
         <div class="card-footer">
           <div class="d-flex">
-
-            <router-link v-show="showEditBtn"
+            <router-link
+              v-show="showEditBtn"
               :to="{ name: 'customer-edit', params: { id: customer.id } }"
               class="btn btn-link"
               >Edit</router-link
             >
-           <div class="d-flex justify-content-around">
-             <router-link
-              :to="{ name: 'customer-transaction', params: { id: customer.id } }"  class="btn btn-primary ms-auto mx-1">Transaction</router-link>
-              <router-link v-show="showPayBtn"
-              :to="{ name: 'customer-pay', params: { id: customer.id } }"  class="btn btn-dark ms-auto mx-1">Pay Due</router-link>
-           </div>
+            <div class="d-flex justify-content-around">
+              <router-link
+                :to="{
+                  name: 'customer-transaction',
+                  params: { id: customer.id },
+                }"
+                class="btn btn-primary ms-auto mx-1"
+                >Transaction</router-link
+              >
+              <router-link
+                v-show="showPayBtn"
+                :to="{ name: 'customer-pay', params: { id: customer.id } }"
+                class="btn btn-dark ms-auto mx-1"
+                >Pay Due</router-link
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -174,13 +263,17 @@
 export default {
   props: {
     data: Object,
-    showEditBtn:{
-        type:Boolean,
-        default: true
+    showEditBtn: {
+      type: Boolean,
+      default: true,
     },
-    showPayBtn:{
-        type:Boolean,
-        default: true
+    showPayBtn: {
+      type: Boolean,
+      default: true,
+    },
+    showComplementBtn: {
+      type: Boolean,
+      default: true,
     },
   },
 };

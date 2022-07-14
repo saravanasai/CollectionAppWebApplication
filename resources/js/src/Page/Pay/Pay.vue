@@ -35,6 +35,36 @@
                 <div class="h5 my-1">
                   <span>Location : </span>{{ customer.location?.locationName }}
                 </div>
+                <div class="h5 my-1">
+                  <span
+                    >Complement 1 :
+                    <span
+                      :class="
+                        customer.complementOne
+                          ? 'badge bg-green-lt'
+                          : 'badge bg-danger-lt'
+                      "
+                    >
+                      <template v-if="customer.complementOne"> Yes </template>
+                      <template v-if="!customer.complementOne"> No </template>
+                    </span>
+                  </span>
+                </div>
+                <div class="h5 my-1">
+                  <span
+                    >Complement 2 :
+                    <span
+                      :class="
+                        customer.complementTwo
+                          ? 'badge bg-green-lt'
+                          : 'badge bg-danger-lt'
+                      "
+                    >
+                      <template v-if="customer.complementTwo"> Yes </template>
+                      <template v-if="!customer.complementTwo"> No </template>
+                    </span>
+                  </span>
+                </div>
                 <div class="h5">
                   <span>Plan : </span
                   ><span class="badge bg-green-lt"
@@ -110,8 +140,8 @@ export default {
     MainLayout,
     Tittle,
     Loader,
-    BackButton
-},
+    BackButton,
+  },
   props: {
     id: String,
   },

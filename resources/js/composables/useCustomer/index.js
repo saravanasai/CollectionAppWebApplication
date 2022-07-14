@@ -4,6 +4,7 @@ import api from "../../config";
 
 export default function useCustomer() {
     const url = "/customer";
+    const complementUrl = "/complement";
 
     const state = reactive({
         customers: {},
@@ -49,11 +50,25 @@ export default function useCustomer() {
         return api.put(url + "/" + id, data);
     };
 
+
+
+    const updateComplement = (id) => {
+        let data = {
+             first_complement: state.customer.complementOne,
+             second_complement: state.customer.complementTwo,
+
+        };
+
+        return api.put(complementUrl + "/" + id, data);
+    };
+
+
     return {
         ...toRefs(state),
         getCustomers,
         getCustomer,
         addCustomer,
         updateCustomer,
+        updateComplement
     };
 }

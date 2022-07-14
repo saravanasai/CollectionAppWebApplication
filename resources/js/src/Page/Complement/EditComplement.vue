@@ -2,8 +2,8 @@
   <MainLayout>
     <template v-slot:top-section>
       <Tittle>
-        <template v-slot:pre-tittle>Customer Transaction</template>
-        <template v-slot:page-tittle>Customer Transaction Details</template>
+        <template v-slot:pre-tittle>Complement Update</template>
+        <template v-slot:page-tittle>Complement Details</template>
         <template v-slot:right-side-content>
           <div class="btn-list float-end">
             <span class="d-sm-inline">
@@ -17,9 +17,9 @@
       </Tittle>
     </template>
     <template v-slot:content>
-      <div class="card">
-        <div class="row row-cards p-3">
-          <div class="col-md-4">
+      <div class="card p-md-5">
+        <div class="row">
+          <div class="col-md-7">
             <div class="card">
               <div class="card-body">
                 <div class="subheader my-2">Member Information</div>
@@ -45,9 +45,8 @@
                           : 'badge bg-danger-lt'
                       "
                     >
-
-                    <template v-if="customer.complementOne"> Yes </template>
-                    <template v-if="!customer.complementOne"> No </template>
+                      <template v-if="customer.complementOne"> Yes </template>
+                      <template v-if="!customer.complementOne"> No </template>
                     </span>
                   </span>
                 </div>
@@ -75,68 +74,58 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-5">
             <div class="card">
               <div class="card-body">
-                <div class="subheader">Total Amount</div>
+                <div class="subheader">Collection Total</div>
                 <div class="h3 my-2">
                   {{ customer.collection?.collection_total_due }}
                 </div>
-                <div class="subheader">balance</div>
+                <div class="subheader">Collection Balance</div>
                 <div class="h3 my-2">
                   {{ customer.collection?.collection_balance_due }}
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="subheader">Paid Amount</div>
-                <div class="h3 m-0">{{ customerTransactionsTotal }}</div>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="row mt-3 p-3">
-          <div class="container-xl">
+        <div class="row mt-3">
+          <div class="col-md-12 col-sm-12">
             <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Complement Section</h3>
+              </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th><button class="table-sort">TR-ID</button></th>
-                        <th><button class="table-sort">Amount</button></th>
-                        <th><button class="table-sort">Date</button></th>
-                      </tr>
-                    </thead>
-
-                    <tbody class="table-tbody">
-                      <tr>
-                        <td colspan="3">
-                          <Loader :isLoading="isLoadingTransaction" />
-                        </td>
-                      </tr>
-                      <template
-                        v-for="transaction in customertransactions"
-                        :key="transaction.transactionId"
-                      >
-                        <tr>
-                          <td class="sort-name">
-                            TR-{{ transaction.transactionId }}
-                          </td>
-                          <td class="sort-city">
-                            {{ transaction.transactionAmount }}
-                          </td>
-                          <td class="sort-type">
-                            {{ transaction.created_at }}
-                          </td>
-                        </tr>
-                      </template>
-                    </tbody>
-                  </table>
-                </div>
+                <form @submit.prevent="handlePayment">
+                  <div class="mb-3">
+                    <div class="form-label"></div>
+                    <div>
+                      <label class="form-check form-check-inline">
+                        <input
+                          v-model="customer.complementOne"
+                          class="form-check-input"
+                          type="checkbox"
+                          :checked="customer.complementOne"
+                        />
+                        <span class="form-check-label">Complement 1</span>
+                      </label>
+                      <label class="form-check form-check-inline">
+                        <input
+                          v-model="customer.complementTwo"
+                          class="form-check-input"
+                          type="checkbox"
+                          :checked="customer.complementTwo"
+                        />
+                        <span class="form-check-label">Complement 2</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-footer">
+                    <button type="submit" class="btn btn-primary float-end">
+                      Update Complement
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -150,13 +139,10 @@
 import MainLayout from "../../layout/Main/Main.vue";
 import Tittle from "../../layout/Tittle/Tittle.vue";
 import Loader from "../../../components/Loader/Loader.vue";
-import useFreeCustomer from "../../../composables/useFreeCustomer";
+import useCustomer from "../../../composables/useCustomer";
 import { onMounted, ref, toRefs, reactive } from "@vue/runtime-core";
-import LocationSelect from "../../../components/SelectBox/LocationSelect/LocationSelect.vue";
-import PlanSelect from "../../../components/SelectBox/PlanSelect/PlanSelect.vue";
-import AgentSelect from "../../../components/SelectBox/AgentSelect/AgentSelect.vue";
 import useNavigation from "../../../composables/useNavigation";
-import useTransaction from "../../../composables/useTransaction";
+import usePayment from "../../../composables/usePayment";
 import BackButton from "../../../components/Buttons/BackButton/BackButton.vue";
 undefined;
 undefined;
@@ -165,47 +151,29 @@ export default {
     MainLayout,
     Tittle,
     Loader,
-    LocationSelect,
-    PlanSelect,
-    AgentSelect,
     BackButton,
   },
   props: {
-    id: Number,
+    id: String,
   },
   setup(props) {
     const { router, route } = useNavigation();
 
-    const state = reactive({
-      f_username: "",
-      s_username: "",
-      primary_phone: "",
-      secondary_phone: "",
-      location_id: 0,
-      agent_id: 0,
-    });
-
-    const { customer, getCustomer, updateCustomer } = useFreeCustomer();
-    const {
-      customertransactions,
-      getSingleCustomerTransaction,
-      isLoadingTransaction,
-      customerTransactionsTotal,
-    } = useTransaction();
+    const { customer, getCustomer, updateComplement } = useCustomer();
+    const { pay, amount } = usePayment();
 
     onMounted(() => {
       getCustomer(props.id);
-      getSingleCustomerTransaction(props.id);
     });
 
-    const handleSubmission = () => {
-      updateCustomer(props.id)
+    const handlePayment = () => {
+      updateComplement(props.id)
         .then((e) => {
           if (e.status === 200) {
             Swal.fire({
               position: "center",
               icon: "success",
-              title: `Member Information updated`,
+              title: `Complement Information Updated`,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -215,11 +183,11 @@ export default {
         })
         .catch((e) => {
           if (e.response.status == 422) {
-            if (e.response.data.errors.customer_id) {
+            if (e.response.data.message) {
               Swal.fire({
                 position: "top",
                 icon: "error",
-                title: `${e.response.data.errors.customer_id}`,
+                title: `${e.response.data.message}`,
                 toast: true,
                 showConfirmButton: false,
                 timer: 1500,
@@ -229,14 +197,7 @@ export default {
         });
     };
 
-    return {
-      ...toRefs(state),
-      handleSubmission,
-      customer,
-      customertransactions,
-      isLoadingTransaction,
-      customerTransactionsTotal,
-    };
+    return { handlePayment, customer, amount };
   },
 };
 </script>
