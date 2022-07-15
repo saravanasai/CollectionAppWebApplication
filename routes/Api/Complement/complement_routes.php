@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group([], function () {
+Route::group(['middleware'=>'auth:sanctum'], function () {
 
     Route::apiResource('complement', ComplementMasterController::class);
 });

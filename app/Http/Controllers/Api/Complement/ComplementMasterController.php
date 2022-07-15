@@ -22,7 +22,7 @@ class ComplementMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Customer $complement)
+    public function update(Request $request, $id)
     {
 
 
@@ -31,9 +31,11 @@ class ComplementMasterController extends Controller
             "second_complement" => ['required'],
         ]);
 
+        $complement = Customer::find($id);
+
         $isUpdated = $complement->update([
-            "complement_one" =>$request->first_complement ? 1 : 0,
-            "complement_two" =>$request->second_complement ? 1 : 0,
+            "complement_one" => $request->first_complement ? true : false,
+            "complement_two" => $request->second_complement ? true : false,
         ]);
 
 

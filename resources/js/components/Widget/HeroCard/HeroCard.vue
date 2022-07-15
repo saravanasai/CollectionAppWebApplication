@@ -9,7 +9,6 @@
             <AnchorButton :btnTxt="'Plan List'" :To="'plan'" />
             <AnchorButton :btnTxt="'Location List'" :To="'location'" />
             <AnchorButton :btnTxt="'Transaction List'" :To="'reports'" />
-            <AnchorButton :btnTxt="'Complement'" />
             <AnchorButton :btnTxt="'Scheme List'" :To="'scheme'" />
             <AnchorButton :btnTxt="'Reports'" :To="'reports-shareable'" />
             <AnchorButton :btnTxt="'Complements'" :To="'complement-shareable'" />

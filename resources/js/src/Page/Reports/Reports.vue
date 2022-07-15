@@ -144,31 +144,30 @@ export default {
         0
       ).then((e) => {
         setTimeout(() => {
-          loadDataTable()
+          loadDataTable();
         }, 2000);
       });
     });
 
-    const loadDataTable = ()=>{
-            $("#advanceExportTable").DataTable().destroy()
-         reportsAdvanceTable = $("#advanceExportTable").DataTable({
-            iDisplayLength: 100,
-            lengthChange: false,
-            searching: false,
-            dom: "Bfrtip",
-            buttons: [
-              {
-                extend: "csv",
-                className: "btn btn-primary glyphicon glyphicon-save-file  mb-3",
-              },
-              {
-                extend: "print",
-                className: "btn btn-primary glyphicon glyphicon-print  mb-3",
-              },
-            ],
-          });
-
-    }
+    const loadDataTable = () => {
+      $("#advanceExportTable").DataTable().destroy();
+      reportsAdvanceTable = $("#advanceExportTable").DataTable({
+        iDisplayLength: 100,
+        lengthChange: false,
+        searching: false,
+        dom: "Bfrtip",
+        buttons: [
+          {
+            extend: "csv",
+            className: "btn btn-primary glyphicon glyphicon-save-file  mb-3",
+          },
+          {
+            extend: "print",
+            className: "btn btn-primary glyphicon glyphicon-print  mb-3",
+          },
+        ],
+      });
+    };
 
     const handleFilter = () => {
       getCustomers(
@@ -178,12 +177,12 @@ export default {
         state.planId,
         state.planAmount,
         0
-      ).then(e=>{
+      ).then((e) => {
         setTimeout(() => {
-          loadDataTable()
+          loadDataTable();
         }, 2000);
-      })
-    }
+      });
+    };
     return { ...toRefs(state), customers, handleFilter, isLoadingCustomer };
   },
 };

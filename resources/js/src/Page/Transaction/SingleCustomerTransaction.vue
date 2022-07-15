@@ -40,14 +40,17 @@
                     >Complement 1 :
                     <span
                       :class="
-                        customer.complementOne
+                        Number(customer.complementOne)
                           ? 'badge bg-green-lt'
                           : 'badge bg-danger-lt'
                       "
                     >
-
-                    <template v-if="customer.complementOne"> Yes </template>
-                    <template v-if="!customer.complementOne"> No </template>
+                      <template v-if="Number(customer.complementOne)">
+                        Yes
+                      </template>
+                      <template v-if="Number(!customer.complementOne)">
+                        No
+                      </template>
                     </span>
                   </span>
                 </div>
@@ -56,13 +59,17 @@
                     >Complement 2 :
                     <span
                       :class="
-                        customer.complementTwo
+                        Number(customer.complementTwo)
                           ? 'badge bg-green-lt'
                           : 'badge bg-danger-lt'
                       "
                     >
-                      <template v-if="customer.complementTwo"> Yes </template>
-                      <template v-if="!customer.complementTwo"> No </template>
+                      <template v-if="Number(customer.complementTwo)">
+                        Yes
+                      </template>
+                      <template v-if="Number(!customer.complementTwo)">
+                        No
+                      </template>
                     </span>
                   </span>
                 </div>
