@@ -129,72 +129,34 @@
             Balance Due: Rs/-
             <strong>{{ customer.collection?.collection_balance_due }}</strong>
           </div>
-          <div class="mb-2">
-            <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-list-details"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M13 5h8"></path>
-              <path d="M13 9h5"></path>
-              <path d="M13 15h8"></path>
-              <path d="M13 19h5"></path>
-              <rect x="3" y="4" width="6" height="6" rx="1"></rect>
-              <rect x="3" y="14" width="6" height="6" rx="1"></rect>
-            </svg>
-            Complement 1 :
+          <div class="h5 my-1">
             <span
-              :class="
-                customer.complementOne
-                  ? 'badge bg-green-lt'
-                  : 'badge bg-danger-lt'
-              "
-            >
-              <template v-if="customer.complementOne"> Yes </template>
-              <template v-if="!customer.complementOne"> No </template>
+              >Complement 1 :
+              <span
+                :class="
+                  Number(customer.complementOne)
+                    ? 'badge bg-green-lt'
+                    : 'badge bg-danger-lt'
+                "
+              >
+                <template v-if="Number(customer.complementOne)"> Yes </template>
+                <template v-if="Number(customer.complementOne)"> No </template>
+              </span>
             </span>
           </div>
-          <div class="mb-2">
-            <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-list-details"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M13 5h8"></path>
-              <path d="M13 9h5"></path>
-              <path d="M13 15h8"></path>
-              <path d="M13 19h5"></path>
-              <rect x="3" y="4" width="6" height="6" rx="1"></rect>
-              <rect x="3" y="14" width="6" height="6" rx="1"></rect>
-            </svg>
-            Complement 2 :
+          <div class="h5 my-1">
             <span
-              :class="
-                customer.complementTwo
-                  ? 'badge bg-green-lt'
-                  : 'badge bg-danger-lt'
-              "
-            >
-              <template v-if="customer.complementTwo"> Yes </template>
-              <template v-if="!customer.complementTwo"> No </template>
+              >Complement 2 :
+              <span
+                :class="
+                  Number(customer.complementTwo)
+                    ? 'badge bg-green-lt'
+                    : 'badge bg-danger-lt'
+                "
+              >
+                <template v-if="Number(customer.complementTwo)"> Yes </template>
+                <template v-if="Number(customer.complementTwo)"> No </template>
+              </span>
             </span>
           </div>
           <div>

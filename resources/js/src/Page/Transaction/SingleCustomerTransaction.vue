@@ -48,7 +48,7 @@
                       <template v-if="Number(customer.complementOne)">
                         Yes
                       </template>
-                      <template v-if="Number(!customer.complementOne)">
+                      <template v-if="Number(customer.complementOne)">
                         No
                       </template>
                     </span>
@@ -67,7 +67,7 @@
                       <template v-if="Number(customer.complementTwo)">
                         Yes
                       </template>
-                      <template v-if="Number(!customer.complementTwo)">
+                      <template v-if="Number(customer.complementTwo)">
                         No
                       </template>
                     </span>

@@ -21,8 +21,8 @@
               <td class="sort-city">{{item.plan?.amount}}</td>
               <td class="sort-city">{{item.location?.locationName}}</td>
               <td class="sort-city">{{item.agent?.agentName+'-'+item.agent?.agentId}}</td>
-              <td class="sort-city">{{item.complementOne ? 'Yes' : 'No'}}</td>
-              <td class="sort-city">{{item.complementTwo ? 'Yes' : 'No'}}</td>
+              <td class="sort-city">{{Number(item.complementOne) ? 'Yes' : 'No'}}</td>
+              <td class="sort-city">{{Number(item.complementTwo) ? 'Yes' : 'No'}}</td>
             </tr>
             </template>
           </tbody>
