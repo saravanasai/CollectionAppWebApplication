@@ -103,7 +103,7 @@
                           v-model="customer.complementOne"
                           class="form-check-input"
                           type="checkbox"
-                          :checked="Number(customer.complementOne)"
+                          :checked="Number(customer.complementOne)==1"
                         />
                         <span class="form-check-label">Complement 1</span>
                       </label>
@@ -112,7 +112,7 @@
                           v-model="customer.complementTwo"
                           class="form-check-input"
                           type="checkbox"
-                          :checked="Number(customer.complementTwo)"
+                          :checked="Number(customer.complementTwo)==1"
                         />
                         <span class="form-check-label">Complement 2</span>
                       </label>
