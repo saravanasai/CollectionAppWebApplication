@@ -139,8 +139,7 @@
                     : 'badge bg-danger-lt'
                 "
               >
-                <template v-if="Number(customer.complementOne)"> Yes </template>
-                <template v-if="Number(customer.complementOne)"> No </template>
+                {{ Number(customer.complementOne) == 1 ? "Yes" : "No" }}
               </span>
             </span>
           </div>
@@ -154,8 +153,7 @@
                     : 'badge bg-danger-lt'
                 "
               >
-                <template v-if="Number(customer.complementTwo)"> Yes </template>
-                <template v-if="Number(customer.complementTwo)"> No </template>
+                {{ Number(customer.complementTwo) == 1 ? "Yes" : "No" }}
               </span>
             </span>
           </div>
