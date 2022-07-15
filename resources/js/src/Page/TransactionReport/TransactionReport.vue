@@ -152,6 +152,7 @@ export default {
       getAllTransactions().then((e) => {
         setTimeout(() => {
           state.total = totalSum();
+          $("#TransactionReportTable").DataTable().destroy();
           TransactionReporttable = $("#TransactionReportTable").DataTable({
             iDisplayLength: 100,
             lengthChange: false,
@@ -165,6 +166,7 @@ export default {
       getAllTransactions(state.fromDate, state.toDate).then((e) => {
         setTimeout(() => {
           state.total = totalSum();
+          $("#TransactionReportTable").DataTable().destroy();
           TransactionReporttable = $("#TransactionReportTable").DataTable({
             iDisplayLength: 100,
             lengthChange: false,

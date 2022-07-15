@@ -43,6 +43,14 @@
               :value="planId"
             />
           </div>
+           <div class="col-md-3 col-sm-12">
+            <label class="form-label">Complement</label>
+            <ComplementSelect
+              @change="handleFilter"
+              v-model="complementOption"
+              :value="complementOption"
+            />
+          </div>
         </div>
         <div class="card-header justify-content-center"></div>
         <div
@@ -51,7 +59,7 @@
         >
           <Loader :isLoading="isLoadingCustomer" />
           <ComplementReportTable
-            :tableId="'advanceExportTable'"
+            :tableId="'advanceComplementExportTable'"
             :headers="[
               'Sno',
               'CustomerID',
@@ -95,6 +103,7 @@ import "datatables.net-buttons/js/buttons.flash.js";
 import "datatables.net-buttons/js/buttons.html5.js";
 import "datatables.net-buttons/js/buttons.print.js";
 import $ from "jquery";
+import ComplementSelect from "../../../components/SelectBox/ComplementSelect/ComplementSelect.vue";
 export default {
   components: {
     MainLayout,
@@ -106,7 +115,8 @@ export default {
     PlanSelect,
     BackButton,
     ComplementReportTable,
-  },
+    ComplementSelect
+},
   setup() {
     let reportsAdvanceTable = "";
 
@@ -116,6 +126,7 @@ export default {
       locactionId: 0,
       planId: 0,
       planAmount: 0,
+      complementOption: 0,
     });
 
     const { router, route } = useNavigation();
@@ -132,13 +143,17 @@ export default {
         0
       ).then((e) => {
         setTimeout(() => {
+
           loadDataTable();
         }, 2000);
       });
     });
 
     const loadDataTable = () => {
-      reportsAdvanceTable = $("#advanceExportTable").DataTable({
+
+        $("#advanceComplementExportTable").DataTable().destroy()
+
+      reportsAdvanceTable = $("#advanceComplementExportTable").DataTable({
         iDisplayLength: 100,
         lengthChange: false,
         searching: false,
@@ -163,6 +178,7 @@ export default {
         state.agentId,
         state.planId,
         state.planAmount,
+        state.complementOption,
         0
       ).then((e) => {
         setTimeout(() => {

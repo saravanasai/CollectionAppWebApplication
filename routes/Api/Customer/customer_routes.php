@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware'=>'auth:sanctum'],function()
 {
 
+    Route::get('customer/search-by-id/{id}',[CustomerMasterController::class,'searchByMemberId']);
     Route::apiResource('customer',CustomerMasterController::class);
 
 

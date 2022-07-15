@@ -150,7 +150,7 @@ export default {
     });
 
     const loadDataTable = ()=>{
-
+            $("#advanceExportTable").DataTable().destroy()
          reportsAdvanceTable = $("#advanceExportTable").DataTable({
             iDisplayLength: 100,
             lengthChange: false,

@@ -13,6 +13,7 @@
             <AnchorButton :btnTxt="'Scheme List'" :To="'scheme'" />
             <AnchorButton :btnTxt="'Reports'" :To="'reports-shareable'" />
             <AnchorButton :btnTxt="'Complements'" :To="'complement-shareable'" />
+            <AnchorButton :btnTxt="'Search-ID'" :To="'search-by-id'" />
           </div>
         </div>
         <div class="row">

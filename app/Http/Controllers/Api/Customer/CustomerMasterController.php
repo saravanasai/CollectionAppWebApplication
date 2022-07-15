@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Customer;
 
 use App\Action\Collection\CollectionAction;
 use App\Action\Collection\CollectionUpdateAction;
+use App\Constant\Complement\ComplementConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\CustomerStoreRequest;
 use App\Http\Requests\Customer\CustomerUpdateRequest;
@@ -45,8 +46,23 @@ class CustomerMasterController extends Controller
             $query->amountBalanceFilter($request->amount);
         }
 
-        if($request->has('take') && $request->take!=0)
-        {
+        if ($request->has('complement') && $request->complement != 0) {
+
+            if ($request->complement == ComplementConstant::FirstComplement) {
+                $query->FirstComplementFilter();
+            }
+            if ($request->complement == ComplementConstant::SecondComplement) {
+                $query->SecondComplementFilter();
+            }
+            if ($request->complement == ComplementConstant::BothOneAndTwo) {
+                $query->BothComplementFilter($request->amount);
+            }
+            if ($request->complement == ComplementConstant::NotBothOneAndTwo) {
+                $query->NotBothComplementFilter();
+            }
+        }
+
+        if ($request->has('take') && $request->take != 0) {
             $query->take($request->take);
         }
 
@@ -129,5 +145,22 @@ class CustomerMasterController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function searchByMemberId($id)
+    {
+        $customer = Customer::query()
+            ->where('customer_id', $id)
+            ->first();
+
+        return $customer
+            ? response()->json(["data" => CustomerResource::make($customer)], 200)
+            : response()->json(["message" => "Member Not Found"], 404);
     }
 }

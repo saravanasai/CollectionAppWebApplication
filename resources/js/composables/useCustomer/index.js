@@ -9,13 +9,37 @@ export default function useCustomer() {
     const state = reactive({
         customers: {},
         customer: {},
+        customerId: 0,
         isLoadingCustomer: true,
     });
 
-    const getCustomers = async (key = "",location=0,agent=0,plan=0,amount=0,take=50) => {
+    const getCustomers = async (
+        key = "",
+        location = 0,
+        agent = 0,
+        plan = 0,
+        amount = 0,
+        complementFilter = 0,
+        take = 50
+    ) => {
         state.isLoadingCustomer = true;
 
-        let dynamicUrl=url + "?searchKey=" + key+"&location="+location+"&agent="+agent+"&plan="+plan+"&amount="+amount+"&take="+take
+        let dynamicUrl =
+            url +
+            "?searchKey=" +
+            key +
+            "&location=" +
+            location +
+            "&agent=" +
+            agent +
+            "&plan=" +
+            plan +
+            "&amount=" +
+            amount +
+            "&complement=" +
+            complementFilter +
+            "&take=" +
+            take;
 
         api.get(dynamicUrl).then((e) => {
             state.customers = e.data.data;
@@ -31,11 +55,15 @@ export default function useCustomer() {
         });
     };
 
+    const getCustomerbyMemberId = async (memberId) => {
+        return api.get(url + "/search-by-id/" + memberId);
+    };
+
     const addCustomer = (data) => {
         return api.post(url, data);
     };
 
-    const updateCustomer = (id,planChanged=false) => {
+    const updateCustomer = (id, planChanged = false) => {
         let data = {
             f_username: state.customer.firstName,
             s_username: state.customer.secondName,
@@ -50,18 +78,14 @@ export default function useCustomer() {
         return api.put(url + "/" + id, data);
     };
 
-
-
     const updateComplement = (id) => {
         let data = {
-             first_complement: state.customer.complementOne,
-             second_complement: state.customer.complementTwo,
-
+            first_complement: state.customer.complementOne,
+            second_complement: state.customer.complementTwo,
         };
 
         return api.put(complementUrl + "/" + id, data);
     };
-
 
     return {
         ...toRefs(state),
@@ -69,6 +93,7 @@ export default function useCustomer() {
         getCustomer,
         addCustomer,
         updateCustomer,
-        updateComplement
+        updateComplement,
+        getCustomerbyMemberId,
     };
 }

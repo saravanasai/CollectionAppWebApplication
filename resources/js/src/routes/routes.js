@@ -24,9 +24,15 @@ import TransactionReport from "../Page/TransactionReport/TransactionReport.vue";
 import Reports from "../Page/Reports/Reports.vue";
 import EditComplement from "../Page/Complement/EditComplement.vue";
 import Complement from "../Page/Complement/Complement.vue";
+import SearchMemberId from "../Page/SearchMemberId/SearchMemberId.vue";
 
 const routes = [
-
+    {
+        path: "/search-by-member-id",
+        name: "search-by-id",
+        component: SearchMemberId,
+        meta: { requiresAuth: true },
+    },
     {
         path: "/shareable/complements",
         name: "complement-shareable",

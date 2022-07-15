@@ -2,8 +2,8 @@
   <MainLayout>
     <template v-slot:top-section>
       <Tittle>
-        <template v-slot:pre-tittle>All Members</template>
-        <template v-slot:page-tittle>All Members</template>
+        <template v-slot:pre-tittle>Search By Member-ID</template>
+        <template v-slot:page-tittle>Search By Member-ID</template>
         <template v-slot:right-side-content>
           <div class="btn-list float-end">
             <span class="d-sm-inline">
@@ -19,27 +19,30 @@
     <template v-slot:content>
       <div class="card p-md-5 m-sm-2">
         <div class="row">
-          <div class="col-md-12 col-sm-3">
+          <div class="col-md-6 col-sm-3">
             <div class="m-3">
               <input
                 type="text"
-                v-model="searchKey"
-                v-on:keyup="() => handleSearch()"
+                v-model="memberId"
                 class="form-control"
-                placeholder="Search…"
+                placeholder="Member ID"
               />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-3">
+            <div class="m-3">
+              <button
+                type="button"
+                @click="handleFind"
+                class="btn btn-dark mx-1 float-end"
+              >
+                <template v-if="!isFinding"> Find </template>
+                <template v-if="isFinding"> Finding... </template>
+              </button>
             </div>
           </div>
         </div>
         <div class="card-header justify-content-center"></div>
-        <div
-          class="list-group list-group-flush overflow-auto"
-          style="max-height: 35rem"
-        >
-          <Loader :isLoading="isLoadingCustomer" />
-
-          <CustomerCard :data="customers" v-if="!isLoadingCustomer" />
-        </div>
       </div>
     </template>
   </MainLayout>
@@ -49,11 +52,11 @@
 import MainLayout from "../../layout/Main/Main.vue";
 import Tittle from "../../layout/Tittle/Tittle.vue";
 import Loader from "../../../components/Loader/Loader.vue";
-import useCustomer from "../../../composables/useCustomer";
 import { onMounted, ref, toRefs, reactive } from "@vue/runtime-core";
 import useNavigation from "../../../composables/useNavigation";
 import CustomerCard from "../../../components/Widget/CustomerCard/CustomerCard.vue";
 import BackButton from "../../../components/Buttons/BackButton/BackButton.vue";
+import useCustomer from "../../../composables/useCustomer";
 undefined;
 undefined;
 export default {
@@ -65,25 +68,37 @@ export default {
     BackButton,
   },
   setup() {
-    const searchKey = ref("");
-    const debounce = ref(null);
+    const memberId = ref(null);
+    const isFinding = ref(false);
 
-    const { router, route } = useNavigation();
+    const { router } = useNavigation();
 
-    const { customers, getCustomers, isLoadingCustomer } = useCustomer();
+    const { getCustomerbyMemberId } = useCustomer();
 
-    onMounted(() => {
-      getCustomers(searchKey.value);
-    });
-
-    const handleSearch = () => {
-      clearTimeout(debounce.value);
-      debounce.value = setTimeout(() => {
-        getCustomers(searchKey.value);
-      }, 600);
+    const handleFind = () => {
+      isFinding.value = true;
+      getCustomerbyMemberId(memberId.value)
+        .then((e) => {
+          if (e.status == 200) {
+            router.push({
+              name: "customer-pay",
+              params: { id: e.data.data.id },
+            });
+          }
+        })
+        .catch((e) => {
+          isFinding.value = false;
+          if (e.response.status == 404) {
+            Toast.open({
+              type: "error",
+              message: "Member Not Found",
+              duration: 1500,
+            });
+          }
+        });
     };
 
-    return { customers, searchKey, handleSearch, isLoadingCustomer };
+    return { memberId, isFinding, handleFind };
   },
 };
 </script>

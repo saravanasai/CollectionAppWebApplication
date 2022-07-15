@@ -20,7 +20,7 @@ class Customer extends Model
 
     protected $table = 'customers';
 
-    protected $primaryKey='id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'customer_id',
@@ -123,15 +123,65 @@ class Customer extends Model
     }
 
 
-      /**
+    /**
      * Scope a query to only include popular users.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeAmountBalanceFilter($query,$amount)
+    public function scopeAmountBalanceFilter($query, $amount)
     {
-        return  $query->whereRelation('Collection','collection_balance_due','>',$amount);
+        return  $query->whereRelation('Collection', 'collection_balance_due', '>', $amount);
     }
 
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFirstComplementFilter($query)
+    {
+        return  $query->where("customers.complement_one", 1)
+            ->where("customers.complement_two", 0);
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSecondComplementFilter($query)
+    {
+        return  $query->where("customers.complement_two", 1)
+            ->where("customers.complement_one", 0);
+    }
+
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeBothComplementFilter($query)
+    {
+        return  $query->where("customers.complement_one", 1)
+            ->where("customers.complement_two", 1);
+    }
+
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNotBothComplementFilter($query)
+    {
+        return  $query->where("customers.complement_one", 0)
+            ->where("customers.complement_two", 0);
+    }
 }
